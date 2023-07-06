@@ -1,0 +1,36 @@
+plugin.tx_mdmastodon_api {
+  view {
+    templateRootPaths.0 = EXT:md_mastodon/Resources/Private/Templates/
+    templateRootPaths.1 = {$plugin.tx_mdmastodon_api.view.templateRootPath}
+    partialRootPaths.0 = EXT:md_mastodon/Resources/Private/Partials/
+    partialRootPaths.1 = {$plugin.tx_mdmastodon_api.view.partialRootPath}
+    layoutRootPaths.0 = EXT:md_mastodon/Resources/Private/Layouts/
+    layoutRootPaths.1 = {$plugin.tx_mdmastodon_api.view.layoutRootPath}
+  }
+
+  persistence {
+    storagePid = {$plugin.tx_mdmastodon_api.persistence.storagePid}
+    #recursive = 1
+  }
+
+  features {
+    #skipDefaultArguments = 1
+    # if set to 1, the enable fields are ignored in BE context
+    ignoreAllEnableFieldsInBe = 0
+  }
+
+  mvc {
+    #callDefaultActionIfActionCantBeResolved = 1
+  }
+
+  settings {
+    apiUrl = {$plugin.tx_mdmastodon_api.settings.apiUrl}
+    apiToken = {$plugin.tx_mdmastodon_api.settings.apiToken}
+  }
+}
+
+// Inlude CSS file, if it was activated in the constants
+[0 < {$plugin.tx_mdmastodon_api.settings.includeCss}]
+  page.includeCSS.mdmastodon = EXT:md_mastodon/Resources/Public/Css/styles.css
+[end]
+

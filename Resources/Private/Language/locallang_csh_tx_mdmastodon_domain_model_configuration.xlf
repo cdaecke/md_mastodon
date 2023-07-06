@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:md_mastodon/Resources/Private/Language/locallang_csh_tx_mdmastodon_domain_model_configuration.xlf" date="2023-06-28T07:42:48Z" product-name="md_mastodon">
+		<header/>
+		<body>
+			<trans-unit id="title.description" resname="title.description">
+				<source>Title of the configuration</source>
+			</trans-unit>
+			<trans-unit id="api_url.description" resname="api_url.description">
+				<source>The Mastodon Api url</source>
+			</trans-unit>
+			<trans-unit id="api_method.description" resname="api_method.description">
+				<source>Mastodon API method</source>
+			</trans-unit>
+			<trans-unit id="api_token.description" resname="api_token.description">
+				<source>Mastodon API token</source>
+			</trans-unit>
+			<trans-unit id="update_frequency.description" resname="update_frequency.description">
+				<source>Update frequency in seconds </source>
+			</trans-unit>
+			<trans-unit id="import_date.description" resname="import_date.description">
+				<source>Date of last update</source>
+			</trans-unit>
+			<trans-unit id="data.description" resname="data.description">
+				<source>JSON response of the api call</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Mediadreams\MdMastodon\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+
+  Mediadreams\MdMastodon\Http\MastodonApiRequester:
+    public: true
+
+  Mediadreams\MdMastodon\Command\ImportCommand:
+    tags:
+      - name: console.command
+        command: 'mdmastodon:import'
+        description: 'Import data from configured Mastodon API calls.'

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:md_mastodon/Resources/Private/Language/locallang.xlf" date="2023-06-28T07:42:48Z" product-name="md_mastodon">
+		<header/>
+		<body>
+			<trans-unit id="flexforms.plugin_api.configId" resname="flexforms.plugin_api.configId">
+				<source>Mastodon configuration</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin_api.configId.description" resname="flexforms.plugin_api.configId.description">
+				<source>Select a Mastodon configuration.</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin_api.limit" resname="flexforms.plugin_api.limit">
+				<source>Limit</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin_api.limit.description" resname="flexforms.plugin_api.limit.description">
+				<source>How many entries do you want to show? Something between 1 and 20.</source>
+			</trans-unit>
+
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.accountsPalette.label" resname="tx_mdmastodon_domain_model_configuration.accountsPalette.label">
+				<source>Accounts configuration (https://docs.joinmastodon.org/methods/accounts/#statuses)</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.hashtagPalette.label" resname="tx_mdmastodon_domain_model_configuration.hashtagPalette.label">
+				<source>Hashtag configuration (https://docs.joinmastodon.org/methods/timelines/#tag)</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.listPalette.label" resname="tx_mdmastodon_domain_model_configuration.listPalette.label">
+				<source>List timeline (https://docs.joinmastodon.org/methods/timelines/#list)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

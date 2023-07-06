@@ -1,0 +1,26 @@
+plugin.tx_mdmastodon_api {
+  view {
+    # cat=plugin.tx_mdmastodon_api/file; type=string; label=Path to template root (FE)
+    templateRootPath = EXT:md_mastodon/Resources/Private/Templates/
+    # cat=plugin.tx_mdmastodon_api/file; type=string; label=Path to template partials (FE)
+    partialRootPath = EXT:md_mastodon/Resources/Private/Partials/
+    # cat=plugin.tx_mdmastodon_api/file; type=string; label=Path to template layouts (FE)
+    layoutRootPath = EXT:md_mastodon/Resources/Private/Layouts/
+  }
+
+  persistence {
+    # cat=plugin.tx_mdmastodon_api//a; type=string; label=Default storage PID
+    storagePid =
+  }
+
+  settings {
+    # cat=plugin.tx_mdmastodon_api/api; type=string; label=Base API URL, eg. `https://mastodon.social/api/v1/`
+    apiUrl =
+
+    # cat=plugin.tx_mdmastodon_api/api; type=string; label=The Mastodon API access token`
+    apiToken =
+
+    # cat=plugin.tx_mdmastodon_api/includeCss; type=string; label=Include standard CSS styles
+    includeCss = 1
+  }
+}

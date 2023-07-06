@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf" date="2023-06-28T07:42:48Z" product-name="md_mastodon">
+		<header/>
+		<body>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration" resname="tx_mdmastodon_domain_model_configuration">
+				<source>Mastodon configuration</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.description" resname="tx_mdmastodon_domain_model_configuration.description">
+				<source>Configuration</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.title" resname="tx_mdmastodon_domain_model_configuration.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.title.description" resname="tx_mdmastodon_domain_model_configuration.title.description">
+				<source>Title of the configuration</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_url" resname="tx_mdmastodon_domain_model_configuration.api_url">
+				<source>Base Api URL</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_url.description" resname="tx_mdmastodon_domain_model_configuration.api_url.description">
+				<source>The Mastodon base api URL, like https://mastodon.social/api/v1/. You can leave this empty, if you have configured a default URL in typoscript constant `plugin.tx_mdmastodon_api.settings.apiUrl`.</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_method" resname="tx_mdmastodon_domain_model_configuration.api_method">
+				<source>Api method</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_method.description" resname="tx_mdmastodon_domain_model_configuration.api_method.description">
+				<source>Mastodon API method</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_token" resname="tx_mdmastodon_domain_model_configuration.api_token">
+				<source>Api token</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_token.description" resname="tx_mdmastodon_domain_model_configuration.api_token.description">
+				<source>Mastodon API token. You can leave this empty, if you have configured a default API token in typoscript constant `plugin.tx_mdmastodon_api.settings.apiToken`.</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.update_frequency" resname="tx_mdmastodon_domain_model_configuration.update_frequency">
+				<source>Update frequency</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.update_frequency.description" resname="tx_mdmastodon_domain_model_configuration.update_frequency.description">
+				<source>Update frequency in seconds </source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.import_date" resname="tx_mdmastodon_domain_model_configuration.import_date">
+				<source>Import date</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.import_date.description" resname="tx_mdmastodon_domain_model_configuration.import_date.description">
+				<source>Date of last update</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.data" resname="tx_mdmastodon_domain_model_configuration.data">
+				<source>Data</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.data.description" resname="tx_mdmastodon_domain_model_configuration.data.description">
+				<source>JSON response of the API call</source>
+			</trans-unit>
+			<trans-unit id="tx_md_mastodon_api.name" resname="tx_md_mastodon_api.name">
+				<source>Mastodon</source>
+			</trans-unit>
+			<trans-unit id="tx_md_mastodon_api.description" resname="tx_md_mastodon_api.description">
+				<source>Show data from Mastodon.</source>
+			</trans-unit>
+
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.only_media" resname="tx_mdmastodon_domain_model_configuration.only_media">
+				<source>Only media</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.only_media.description" resname="tx_mdmastodon_domain_model_configuration.only_media.description">
+				<source>Show only statuses with media attached.</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.only_media.0" resname="tx_mdmastodon_domain_model_configuration.only_media.0">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.account_id" resname="tx_mdmastodon_domain_model_configuration.account_id">
+				<source>Account ID</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.account_id.description" resname="tx_mdmastodon_domain_model_configuration.account_id.description">
+				<source>The ID of the Account in the database.</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.exclude_replies" resname="tx_mdmastodon_domain_model_configuration.exclude_replies">
+				<source>Exclude replies</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.exclude_replies.description" resname="tx_mdmastodon_domain_model_configuration.exclude_replies.description">
+				<source>Filter out statuses in reply to a different account.</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.exclude_replies.0" resname="tx_mdmastodon_domain_model_configuration.exclude_replies.0">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.exclude_reblogs" resname="tx_mdmastodon_domain_model_configuration.exclude_reblogs">
+				<source>Exclude reblogs</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.exclude_reblogs.description" resname="tx_mdmastodon_domain_model_configuration.exclude_reblogs.description">
+				<source>Filter out boosts from the response.</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.exclude_reblogs.0" resname="tx_mdmastodon_domain_model_configuration.exclude_reblogs.0">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.only_pinned" resname="tx_mdmastodon_domain_model_configuration.only_pinned">
+				<source>Pinned</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.only_pinned.description" resname="tx_mdmastodon_domain_model_configuration.only_pinned.description">
+				<source>Filter for pinned statuses only.</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.only_pinned.0" resname="tx_mdmastodon_domain_model_configuration.only_pinned.0">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.hashtag" resname="tx_mdmastodon_domain_model_configuration.hashtag">
+				<source>Hashtag</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.hashtag.description" resname="tx_mdmastodon_domain_model_configuration.hashtag.description">
+				<source>The name of the hashtag (not including the # symbol).</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.list_id" resname="tx_mdmastodon_domain_model_configuration.list_id">
+				<source>List ID</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.list_id.description" resname="tx_mdmastodon_domain_model_configuration.list_id.description">
+				<source>Local Mastodon ID of the list in the database.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
