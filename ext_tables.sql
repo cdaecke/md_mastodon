@@ -10,7 +10,7 @@ CREATE TABLE tx_mdmastodon_domain_model_configuration (
     only_pinned int(11) NOT NULL DEFAULT '0',
     hashtag varchar(255) NOT NULL DEFAULT '',
     list_id varchar(255) NOT NULL DEFAULT '',
-	update_frequency varchar(255) NOT NULL DEFAULT '',
+	update_frequency int(11) NOT NULL DEFAULT '0',
 	import_date int(11) NOT NULL DEFAULT '0',
 	data longtext NOT NULL DEFAULT ''
 );

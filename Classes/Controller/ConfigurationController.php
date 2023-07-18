@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mediadreams\MdMastodon\Controller;
 
+
 /**
  * This file is part of the "Mastodon social networking API" Extension for TYPO3 CMS.
  *
@@ -39,7 +40,7 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
     }
 
     /**
-     * show list
+     * action show
      *
      * @return \Psr\Http\Message\ResponseInterface
      */

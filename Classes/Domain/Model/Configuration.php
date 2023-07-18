@@ -95,7 +95,7 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Update frequency in seconds
      *
-     * @var string
+     * @var int
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $updateFrequency = null;
@@ -348,9 +348,9 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the updateFrequency
      *
-     * @return string
+     * @return int
      */
-    public function getUpdateFrequency()
+    public function getUpdateFrequency(): int
     {
         return $this->updateFrequency;
     }
@@ -358,10 +358,10 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the updateFrequency
      *
-     * @param string $updateFrequency
+     * @param int $updateFrequency
      * @return void
      */
-    public function setUpdateFrequency(string $updateFrequency)
+    public function setUpdateFrequency(int $updateFrequency)
     {
         $this->updateFrequency = $updateFrequency;
     }
