@@ -3,7 +3,7 @@
         <langDisable>1</langDisable>
     </meta>
     <sheets>
-        <ewsfeusers_users>
+        <mdmastodon_api>
             <ROOT>
                 <TCEforms>
                     <sheetTitle>Settings</sheetTitle>
@@ -49,6 +49,6 @@
 
                 </el>
             </ROOT>
-        </ewsfeusers_users>
+        </mdmastodon_api>
     </sheets>
 </T3DataStructure>
