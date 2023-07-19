@@ -3,6 +3,11 @@
 With this extension you are able to show Mastodon toots on your TYPO3 website.
 It will collect data via the API and display it as a Mastodon social wall.
 
+## Screenshots
+
+Example of Mastodon social wall:
+![Screenshot detail](Documentation/Images/mastodon_wall.png?raw=true "Mastodon social wall")
+
 ## Requirements
 
 - TYPO3 v11.5
@@ -56,7 +61,7 @@ API token in typoscript constant `plugin.tx_mdmastodon_api.settings.apiToken`.
 - `Api method`<br>
 Select the Mastodon API method.
     - `Accounts`<br>
-    Statuses posted to the given account. See `https://docs.joinmastodon.org/methods/accounts/#statuses`
+    Statuses posted to the given account. See <https://docs.joinmastodon.org/methods/accounts/#statuses>
         - `Account ID` (required)<br>
         The ID of the Account in the Mastodon database.
         - `Exclude replies`<br>
@@ -66,17 +71,17 @@ Select the Mastodon API method.
         - `Pinned`<br>
         Filter for pinned statuses only.
     - `Hashtag timeline`<br>
-    View public statuses containing the given hashtag. See `https://docs.joinmastodon.org/methods/timelines/#tag`
+    View public statuses containing the given hashtag. See <https://docs.joinmastodon.org/methods/timelines/#tag>
         - `Hashtag`<br>
         The name of the hashtag (not including the # symbol).
     - `Home timeline`<br>
-    View statuses from followed users. See `https://docs.joinmastodon.org/methods/timelines/#home`
+    View statuses from followed users. See <https://docs.joinmastodon.org/methods/timelines/#home>
     - `List timeline`<br>
-    View statuses in the given list timeline. See `https://docs.joinmastodon.org/methods/timelines/#list`
+    View statuses in the given list timeline. See <https://docs.joinmastodon.org/methods/timelines/#list>
         - `List ID`<br>
         Local Mastodon ID of the list in the database.
     - `Public timeline`<br>
-    Public timeline of instance. See `https://docs.joinmastodon.org/methods/timelines/#public`
+    Public timeline of instance. See <https://docs.joinmastodon.org/methods/timelines/#public>
 - `Only media`<br>
 Show only statuses with media attached.
 - `Update frequency`<br>
@@ -85,6 +90,14 @@ Decide how often the feed should be updated (number in seconds).
 Date of last update.
 - `Data` (read only)<br>
 JSON response of the API call.
+
+### Create scheduler task
+- Select module `Scheduler`
+- Click the button `Add task`
+- In field `Class` select `Execute console commands`
+- Choose a `Frequency`. Note: This can be set for example to 5 minutes and the respective Mastodon feed will be updated, as set in the configuration of the feed (field `Update frequency`).
+- In field `Schedulable Command. Save and reopen to define command arguments` choose `mdmastodon:import`
+- Save
 
 ### Create Plugin to show entries
 - Select module `Page`
@@ -95,24 +108,16 @@ JSON response of the API call.
 - Decide, how many entries to show be setting a value in field `Limit`
 - Save
 
-### Create scheduler task
-- Select module `Scheduler`
-- Click the button `Add task`
-- In field `Class` select `Execute console commands`
-- Choose a `Frequency`. Note: This can be set for example to 5 minutes and the respective Mastodon feed will be updated, as set in the configuration of the feed (field `Update frequency`).
-- In field `Schedulable Command. Save and reopen to define command arguments` choose `mdmastodon:import`
-- Save
+**ATTENTION**
+
+Be aware, that the feed needs to be imported by running the scheduler task
+before it can be displayed by the plugin!
 
 ## Bugs and Known Issues
 If you find a bug, it would be nice if you add an issue on [Github](https://github.com/cdaecke/md_mastodon/issues).
-
-## Screenshots
-
-Example of Mastodon social wall:
-![Screenshot detail](Documentation/Images/mastodon_wall.png?raw=true "Mastodon social wall")
 
 # THANKS
 
 Thanks a lot to all who make this outstanding TYPO3 project possible!
 
-The TYPO3 project - inspiring people to share!
+**The TYPO3 project - inspiring people to share!**
