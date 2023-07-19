@@ -184,6 +184,19 @@ return [
                 'default' => 0
             ],
         ],
+        'cached_in_pages' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.cached_in_pages',
+            'description' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.data.cached_in_pages',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim',
+                'readOnly' => true,
+                'default' => ''
+            ]
+        ],
         'data' => [
             'exclude' => true,
             'label' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.data',

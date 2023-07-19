@@ -12,5 +12,6 @@ CREATE TABLE tx_mdmastodon_domain_model_configuration (
     list_id varchar(255) NOT NULL DEFAULT '',
 	update_frequency int(11) NOT NULL DEFAULT '0',
 	import_date int(11) NOT NULL DEFAULT '0',
+    cached_in_pages varchar(255) NOT NULL DEFAULT '[]',
 	data longtext NOT NULL DEFAULT ''
 );

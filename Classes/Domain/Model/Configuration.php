@@ -115,6 +115,13 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $data = null;
 
     /**
+     * Comma seperated page Uids, where feed is cached
+     *
+     * @var string
+     */
+    protected $cachedInPages = null;
+
+    /**
      * Returns the title
      *
      * @return string
@@ -406,5 +413,36 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setData(string $data)
     {
         $this->data = $data;
+    }
+
+    /**
+     * Returns the cachedInPages
+     *
+     * @return array|string
+     */
+    public function getCachedInPages()
+    {
+        return json_decode($this->cachedInPages, true);
+    }
+
+    /**
+     * Sets the cachedInPages
+     *
+     * @param array $cachedInPages
+     * @return void
+     */
+    public function setCachedInPages(array $cachedInPages)
+    {
+        $this->cachedInPages = json_encode($cachedInPages);
+    }
+
+    /**
+     * Reset cachedInPages
+     *
+     * @return void
+     */
+    public function resetCachedInPages()
+    {
+        $this->cachedInPages = json_encode([]);
     }
 }

@@ -17,6 +17,7 @@ namespace Mediadreams\MdMastodon\Controller;
  */
 
 use Mediadreams\MdMastodon\Domain\Repository\ConfigurationRepository;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * ConfigurationController
@@ -49,7 +50,20 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
         /** @var \Mediadreams\MdMastodon\Domain\Model\Configuration $configuration */
         $configuration = $this->configurationRepository->findByUid($this->settings['configId']);
 
+        $cachedInPages = $configuration->getCachedInPages();
+        if (!in_array($this->getTypoScriptFrontendController()->id, $cachedInPages)) {
+            // Add page id to $cachedInPages
+            array_push($cachedInPages, $this->getTypoScriptFrontendController()->id);
+            $configuration->setCachedInPages($cachedInPages);
+            $this->configurationRepository->update($configuration);
+        }
+
         $this->view->assign('items', $configuration->getData());
         return $this->htmlResponse();
+    }
+
+    protected function getTypoScriptFrontendController(): ?TypoScriptFrontendController
+    {
+        return $GLOBALS['TSFE'] ?? null;
     }
 }

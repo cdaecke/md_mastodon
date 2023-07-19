@@ -45,6 +45,12 @@
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.import_date.description" resname="tx_mdmastodon_domain_model_configuration.import_date.description">
 				<source>Date of last update</source>
 			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.cached_in_pages" resname="tx_mdmastodon_domain_model_configuration.cached_in_pages">
+				<source>Cached in pages</source>
+			</trans-unit>
+			<trans-unit id="tx_mdmastodon_domain_model_configuration.cached_in_pages.description" resname="tx_mdmastodon_domain_model_configuration.cached_in_pages.description">
+				<source>JSON object with page Uids where feed is cached</source>
+			</trans-unit>
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.data" resname="tx_mdmastodon_domain_model_configuration.data">
 				<source>Data</source>
 			</trans-unit>

@@ -21,6 +21,7 @@ use Mediadreams\MdMastodon\Service\ImagesService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Log\Logger;
 use \TYPO3\CMS\Core\Log\LogManager;
@@ -106,12 +107,18 @@ class ImportCommand extends Command
                     $apiData = $this->mastodonApiRequester->request($conf);
 
                     if (!empty($apiData)) {
+                        // Clear cache
+                        $this->clearCachedPages($conf->getCachedInPages());
+
                         // Load images for feed and set local image path for entries
                         $apiData = $this->imagesService->loadImages($apiData);
 
                         // Update configuration
                         $conf->setData($apiData);
                         $conf->setImportDate(time());
+
+                        // Reset cached pages
+                        $conf->resetCachedInPages();
 
                         // Save feed
                         $this->configurationRepository->update($conf);
@@ -132,6 +139,19 @@ class ImportCommand extends Command
             $output->writeln('Reason: ' . $exception->getMessage());
 
             return 1687957817;
+        }
+    }
+
+    /**
+     * Clear page cache for given page Ids
+     *
+     * @param array $pages Array with page Uids
+     */
+    private function clearCachedPages(array $pages)
+    {
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        foreach ($pages as $page) {
+            $cacheManager->flushCachesInGroupByTags('pages', [ 'pageId_' . $page ]);
         }
     }
 }
