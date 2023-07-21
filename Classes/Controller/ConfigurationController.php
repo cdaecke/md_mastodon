@@ -58,7 +58,10 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
             $this->configurationRepository->update($configuration);
         }
 
-        $this->view->assign('items', $configuration->getData());
+        $data = is_array($configuration->getData())? $configuration->getData():[];
+        $data = array_slice($data, 0, (int)$this->settings['limit']);
+
+        $this->view->assign('items', $data);
         return $this->htmlResponse();
     }
 

@@ -6,22 +6,26 @@
 
 <f:section name="content">
     <div class="md-masonry">
-        <f:for each="{items}" as="item">
-            <f:if condition="{item.card}">
-                <f:then>
-                    <!-- <h1>card</h1> -->
-                    <f:render section="item" arguments="{content: '{item.content}', link: '{item.card.url}', data: '{item}'}" />
-                </f:then>
-                <f:else if="{item.reblog}">
-                    <h1>reblog</h1>
-                    <f:render section="item" arguments="{content: '{item.reblog.content}', link: '', data: '{item}'}" />
-                </f:else>
-                <f:else>
-                    <!-- <h1>content</h1> -->
-                    <f:render section="item" arguments="{content: '{item.content}', link: '{item.url}', data: '{item}'}" />
-                </f:else>
-            </f:if>
-        </f:for>
+        <f:if condition="{items}">
+            <f:then>
+                <f:for each="{items}" as="item">
+                    <f:if condition="{item.card}">
+                        <f:then>
+                            <f:render section="item" arguments="{content: '{item.content}', link: '{item.card.url}', data: '{item}'}" />
+                        </f:then>
+                        <f:else if="{item.reblog}">
+                            <f:render section="item" arguments="{content: '{item.reblog.content}', link: '', data: '{item}'}" />
+                        </f:else>
+                        <f:else>
+                            <f:render section="item" arguments="{content: '{item.content}', link: '{item.url}', data: '{item}'}" />
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:translate key="template.show.noItems" />
+            </f:else>
+        </f:if>
     </div>
 </f:section>
 

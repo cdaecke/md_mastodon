@@ -25,6 +25,10 @@
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.listPalette.label" resname="tx_mdmastodon_domain_model_configuration.listPalette.label">
 				<source>List timeline (https://docs.joinmastodon.org/methods/timelines/#list)</source>
 			</trans-unit>
+
+			<trans-unit id="template.show.noItems" resname="template.show.noItems">
+				<source>No toots found.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
