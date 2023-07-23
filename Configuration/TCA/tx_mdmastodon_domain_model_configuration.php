@@ -168,7 +168,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,num,required',
-                'default' => ''
+                'default' => '3600'
             ],
         ],
         'import_date' => [

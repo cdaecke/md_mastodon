@@ -108,7 +108,9 @@ class ImportCommand extends Command
 
                     if (!empty($apiData)) {
                         // Clear cache
-                        $this->clearCachedPages($conf->getCachedInPages());
+                        if (is_array($conf->getCachedInPages())) {
+                            $this->clearCachedPages($conf->getCachedInPages());
+                        }
 
                         // Load images for feed and set local image path for entries
                         $apiData = $this->imagesService->loadImages($apiData);

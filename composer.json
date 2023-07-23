@@ -3,27 +3,28 @@
     "type": "typo3-cms-extension",
     "description": "Show data from Mastodon social network via API.",
     "license": "GPL-2.0-or-later",
-	"keywords": [
-		"TYPO3",
-		"TYPO3 CMS",
-		"extension",
-		"Mastodon",
-		"Mastodon API",
-		"social",
-		"social network"
-	],
-	"authors": [
-		{
-			"name": "Christoph Daecke",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/cdaecke/md_mastodon/issues",
-		"source": "https://github.com/cdaecke/md_mastodon"
-	},
+    "keywords": [
+        "TYPO3",
+        "TYPO3 CMS",
+        "extension",
+        "Mastodon",
+        "Mastodon API",
+        "social",
+        "social network"
+    ],
+    "authors": [
+        {
+            "name": "Christoph Daecke",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/cdaecke/md_mastodon/issues",
+        "source": "https://github.com/cdaecke/md_mastodon"
+    },
     "require": {
-        "typo3/cms-core": "^11.5"
+        "typo3/cms-core": "^11.5 || ^12.4",
+        "typo3/cms-scheduler": "^11.5 || ^12.4"
     },
     "autoload": {
         "psr-4": {
