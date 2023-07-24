@@ -15,6 +15,12 @@
 			<trans-unit id="flexforms.plugin_api.limit.description" resname="flexforms.plugin_api.limit.description">
 				<source>How many entries do you want to show? Something between 1 and 20.</source>
 			</trans-unit>
+			<trans-unit id="flexforms.templateLayout" resname="flexforms.templateLayout">
+				<source>Layout</source>
+			</trans-unit>
+			<trans-unit id="flexforms.templateLayout.description" resname="flexforms.templateLayout.description">
+				<source>Choose a layout for the Mastodon wall.</source>
+			</trans-unit>
 
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.accountsPalette.label" resname="tx_mdmastodon_domain_model_configuration.accountsPalette.label">
 				<source>Accounts configuration (https://docs.joinmastodon.org/methods/accounts/#statuses)</source>

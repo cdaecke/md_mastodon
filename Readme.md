@@ -32,6 +32,19 @@ The above two settings can be overwritten in the feed configuration.
 - `plugin.tx_mdmastodon_api.settings.includeCss`<br>
 Include standard CSS styles for a masonry-layout if the items (toots).
 
+### Template layouts
+
+You are able to configure template layouts in `TsConfig`:
+
+```
+tx_mdmastodon_api {
+  templateLayouts {
+    1 = First layout
+    2 = Second layout
+  }
+}
+```
+
 ## Usage
 
 ### Create a new entry of type `Mastodon configuration`

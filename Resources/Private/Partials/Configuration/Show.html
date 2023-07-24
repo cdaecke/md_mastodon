@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:md="http://typo3.org/ns/Mediadreams/MdMastodon/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:for each="{items}" as="item">
+    <f:if condition="{item.card}">
+        <f:then>
+            <f:render section="item" arguments="{content: '{item.content}', link: '{item.card.url}', data: '{item}'}" />
+        </f:then>
+        <f:else if="{item.reblog}">
+            <f:render section="item" arguments="{content: '{item.reblog.content}', link: '', data: '{item}'}" />
+        </f:else>
+        <f:else>
+            <f:render section="item" arguments="{content: '{item.content}', link: '{item.url}', data: '{item}'}" />
+        </f:else>
+    </f:if>
+</f:for>
+
+<f:section name="item">
+    <article class="item" itemscope itemtype="https://schema.org/Article">
+        <a href="{link}" target="_blank">
+            <f:if condition="{data.local_image_file}">
+                <f:image src="{data.local_image_file}" treatIdAsReference="1" maxWidth="400" maxHeight="400" additionalAttributes="{itemprop:'image'}" />
+            </f:if>
+            <div class="body">
+                <p>
+                    <small itemprop="author">@{data.account.acct}</small>
+                    <br>
+                    <small>
+                        <time itemprop="datePublished" datetime="{f:format.date(date:data.created_at, format:'Y-m-d')}">
+                            <f:format.date format="d.m.Y - H:i">{data.created_at}</f:format.date>
+                        </time>
+                    </small>
+                </p>
+                <div itemprop="articleBody">
+                    {content -> md:removeLinks(content: '{content}') -> f:format.stripTags(allowedTags: "<p><br><div>")}
+                </div>
+                </div>
+        </a>
+    </article>
+</f:section>
+</html>

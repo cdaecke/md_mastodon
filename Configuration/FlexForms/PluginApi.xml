@@ -10,7 +10,6 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
-
                     <settings.configId>
                         <TCEforms>
                             <label>LLL:EXT:md_mastodon/Resources/Private/Language/locallang.xlf:flexforms.plugin_api.configId</label>
@@ -46,7 +45,24 @@
                             </config>
                         </TCEforms>
                     </settings.limit>
-
+                    <settings.templateLayout>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:md_mastodon/Resources/Private/Language/locallang.xlf:flexforms.templateLayout</label>
+                            <description>LLL:EXT:md_mastodon/Resources/Private/Language/locallang.xlf:flexforms.templateLayout.description</description>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <itemsProcFunc>Mediadreams\MdMastodon\Hooks\TemplateLayouts->user_templateLayout</itemsProcFunc>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.templateLayout>
                 </el>
             </ROOT>
         </mdmastodon_api>
