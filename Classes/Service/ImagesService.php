@@ -65,9 +65,21 @@ class ImagesService
             $imageUrl = false;
 
             if (is_array($data[$i]['media_attachments']) && count($data[$i]['media_attachments']) > 0) {
-                $imageUrl = $data[$i]['media_attachments'][0]['url'];
+                if ($data[$i]['media_attachments'][0]['type'] == 'video') {
+                    $imageUrl = $data[$i]['media_attachments'][0]['preview_url'];
+                } else {
+                    $imageUrl = $data[$i]['media_attachments'][0]['url'];
+                }
             } elseif (is_array($data[$i]['card']) && $data[$i]['card']['image']) {
                 $imageUrl = $data[$i]['card']['image'];
+            } elseif (is_array($data[$i]['reblog']) && $data[$i]['reblog']['media_attachments']) {
+                if ($data[$i]['reblog']['media_attachments'][0]['type'] == 'video') {
+                    $imageUrl = $data[$i]['reblog']['media_attachments'][0]['preview_url'];
+                } else {
+                    $imageUrl = $data[$i]['reblog']['media_attachments'][0]['url'];
+                }
+            } elseif (empty($imageUrl) && !empty($data[$i]['reblog']['card']['image'])) {
+                $imageUrl = $data[$i]['reblog']['card']['image'];
             }
 
             if ($imageUrl !== false) {

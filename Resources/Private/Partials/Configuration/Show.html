@@ -1,14 +1,12 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:md="http://typo3.org/ns/Mediadreams/MdMastodon/ViewHelpers"
-      data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:for each="{items}" as="item">
     <f:if condition="{item.card}">
         <f:then>
-            <f:render section="item" arguments="{content: '{item.content}', link: '{item.card.url}', data: '{item}'}" />
+            <f:render section="item" arguments="{content: '{item.content}', link: '{item.url}', data: '{item}'}" />
         </f:then>
         <f:else if="{item.reblog}">
-            <f:render section="item" arguments="{content: '{item.reblog.content}', link: '', data: '{item}'}" />
+            <f:render section="item" arguments="{content: '{item.reblog.content}', link: '{item.reblog.url}', data: '{item}'}" />
         </f:else>
         <f:else>
             <f:render section="item" arguments="{content: '{item.content}', link: '{item.url}', data: '{item}'}" />
@@ -33,9 +31,9 @@
                     </small>
                 </p>
                 <div itemprop="articleBody">
-                    {content -> md:removeLinks(content: '{content}') -> f:format.stripTags(allowedTags: "<p><br><div>")}
+                    {content -> f:format.stripTags(allowedTags: "<p><br><div>")}
                 </div>
-                </div>
+            </div>
         </a>
     </article>
 </f:section>
