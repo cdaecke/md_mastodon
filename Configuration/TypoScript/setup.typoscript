@@ -31,6 +31,6 @@ plugin.tx_mdmastodon_api {
 
 // Inlude CSS file, if it was activated in the constants
 [0 < {$plugin.tx_mdmastodon_api.settings.includeCss}]
-  page.includeCSS.mdmastodon = EXT:md_mastodon/Resources/Public/Css/styles.css
+  page.includeCSS.mdmastodon = EXT:md_mastodon/Resources/Public/Css/Styles.css
 [end]
 
