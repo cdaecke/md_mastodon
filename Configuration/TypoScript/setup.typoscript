@@ -24,8 +24,7 @@ plugin.tx_mdmastodon_api {
   }
 
   settings {
-    apiUrl = {$plugin.tx_mdmastodon_api.settings.apiUrl}
-    apiToken = {$plugin.tx_mdmastodon_api.settings.apiToken}
+
   }
 }
 

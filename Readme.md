@@ -10,24 +10,13 @@ Example of Mastodon social wall:
 
 ## Requirements
 
-- TYPO3 v11.5
+- TYPO3 v11.5 | v12.4
 
 ## Installation
 
 - Install the extension by using composer (`composer req mediadreams/md_mastodon`) or the extension manager
 - Include the static TypoScript of the extension
 - Configure the extension by setting your own Typoscript constants
-
-## Basic configuration
-
-Base configure is possible by setting some constant. This will help you to
-skip some configurations for each feed:
-- `plugin.tx_mdmastodon_api.settings.apiUrl`<br>
-Base API URL, eg. `https://mastodon.social/api/v1/`
-- `plugin.tx_mdmastodon_api.settings.apiToken`<br>
-The Mastodon API access token
-
-The above two settings can be overwritten in the feed configuration.
 
 - `plugin.tx_mdmastodon_api.settings.includeCss`<br>
 Include standard CSS styles for a masonry-layout if the items (toots).
@@ -70,7 +59,8 @@ this empty, if you have configured a default URL in typoscript constant
 `plugin.tx_mdmastodon_api.settings.apiUrl`.
 - `Api token`<br>
 Mastodon API token. You can leave this empty, if you have configured a default
-API token in typoscript constant `plugin.tx_mdmastodon_api.settings.apiToken`.
+API token in typoscript constant `plugin.tx_mdmastodon_api.settings.apiToken`.<br>
+ATTENTION: Make sure, that you have given the appropriate rights to your Mastodon application, when generating the API key.
 - `Api method`<br>
 Select the Mastodon API method.
     - `Accounts`<br>

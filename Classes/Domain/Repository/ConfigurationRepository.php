@@ -27,8 +27,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
  */
 class ConfigurationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-    protected $table = 'tx_mdmastodon_domain_model_configuration';
-
     /**
      * Initialize repository
      */
@@ -40,30 +38,5 @@ class ConfigurationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // Show configurations from all pages
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
-    }
-
-    /**
-     * @param $timestamp
-     * @return array
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Driver\Exception
-     */
-    public function getConfigsForUpdate(int $timestamp)
-    {
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getConnectionForTable($this->table);
-
-        $queryBuilder = $connection->createQueryBuilder();
-        $query = $queryBuilder
-            ->select('*')
-            ->from($this->table)
-            ->where('(`import_date` + `update_frequency`) <= ' . $queryBuilder->createNamedParameter($timestamp, \PDO::PARAM_INT));
-
-        $result = $query->execute()->fetchAllAssociative();
-
-        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
-        $objects = $dataMapper->map(Configuration::class, $result);
-
-        return $objects;
     }
 }

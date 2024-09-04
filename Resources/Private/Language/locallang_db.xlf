@@ -19,7 +19,7 @@
 				<source>Base Api URL</source>
 			</trans-unit>
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_url.description" resname="tx_mdmastodon_domain_model_configuration.api_url.description">
-				<source>The Mastodon base api URL, like https://mastodon.social/api/v1/. You can leave this empty, if you have configured a default URL in typoscript constant `plugin.tx_mdmastodon_api.settings.apiUrl`.</source>
+				<source>The Mastodon base api URL, like https://mastodon.social/api/v1/.</source>
 			</trans-unit>
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_method" resname="tx_mdmastodon_domain_model_configuration.api_method">
 				<source>Api method</source>
@@ -31,7 +31,7 @@
 				<source>Api token</source>
 			</trans-unit>
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.api_token.description" resname="tx_mdmastodon_domain_model_configuration.api_token.description">
-				<source>Mastodon API token. You can leave this empty, if you have configured a default API token in typoscript constant `plugin.tx_mdmastodon_api.settings.apiToken`.</source>
+				<source>Mastodon API token.</source>
 			</trans-unit>
 			<trans-unit id="tx_mdmastodon_domain_model_configuration.update_frequency" resname="tx_mdmastodon_domain_model_configuration.update_frequency">
 				<source>Update frequency</source>

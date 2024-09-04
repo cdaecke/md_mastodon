@@ -14,12 +14,6 @@ plugin.tx_mdmastodon_api {
   }
 
   settings {
-    # cat=plugin.tx_mdmastodon_api/api; type=string; label=Base API URL, eg. `https://mastodon.social/api/v1/`
-    apiUrl =
-
-    # cat=plugin.tx_mdmastodon_api/api; type=string; label=The Mastodon API access token`
-    apiToken =
-
     # cat=plugin.tx_mdmastodon_api/includeCss; type=string; label=Include standard CSS styles
     includeCss = 1
   }

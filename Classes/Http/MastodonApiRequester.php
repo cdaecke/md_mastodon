@@ -15,8 +15,6 @@ namespace Mediadreams\MdMastodon\Http;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Mediadreams\MdMastodon\Domain\Model\Configuration;
-use Mediadreams\MdMastodon\Service\SettingsService;
 use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Http\RequestFactory;
 
@@ -27,55 +25,41 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 final class MastodonApiRequester
 {
     /**
-     * @var array
-     */
-    protected $settings;
-
-    /**
      * @var RequestFactory
      */
-    protected $requestFactory;
-
-    /**
-     * @var SettingsService
-     */
-    protected $settingsService;
+    protected RequestFactory $requestFactory;
 
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * MastodonApiRequester constructor.
      * @param RequestFactory $requestFactory
-     * @param SettingsService $settingsService
      * @param LoggerInterface $logger
      */
-    public function __construct(RequestFactory $requestFactory, SettingsService $settingsService, LoggerInterface $logger)
+    public function __construct(RequestFactory $requestFactory, LoggerInterface $logger)
     {
         $this->requestFactory = $requestFactory;
-        $this->settingsService = $settingsService;
         $this->logger = $logger;
     }
 
     /**
-     * @param Configuration $conf
+     * @param array $conf
      * @return string
      */
-    public function request(Configuration $conf): string
+    public function request(array $conf): string
     {
-        $this->settings = $this->settingsService->getSettings();
         $url = $this->getApiUrl($conf);
 
-        $apiToken = !empty($conf->getApiToken())? $conf->getApiToken():$this->settings['apiToken'];
-        if (empty($apiToken)) {
-            $this->logger->error('No API token provided for configuration with Uid ' . $conf->getUid());
+        if (empty($conf['api_token'])) {
+            $this->logger->error('No API token provided for configuration with Uid ' . $conf['uid']);
             return '';
         }
 
         $additionalOptions = [
-            'headers' => ['Authorization' => 'Bearer ' . $conf->getApiToken()],
+            'headers' => ['Authorization' => 'Bearer ' . $conf['api_token']],
         ];
 
         $response = $this->requestFactory->request(
@@ -100,20 +84,20 @@ final class MastodonApiRequester
     /**
      * Get API URL
      *
-     * @param Configuration $conf
+     * @param array $conf
      * @return string
      */
-    private function getApiUrl(Configuration $conf): string
+    private function getApiUrl(array $conf): string
     {
-        $url = !empty($conf->getApiUrl())? $conf->getApiUrl():$this->settings['apiUrl'];
+        $url = $conf['api_url'];
         if (empty($url)) {
-            $this->logger->error('No API url provided for configuration with Uid ' . $conf->getUid());
+            $this->logger->error('No API url provided for configuration with Uid ' . $conf['uid']);
             return '';
         }
 
         $apiUrlPath = $this->getApiUrlPath($conf);
         if (empty($apiUrlPath)) {
-            $this->logger->error('Could not resolve apiUrlPath for configuration with Uid ' . $conf->getUid());
+            $this->logger->error('Could not resolve apiUrlPath for configuration with Uid ' . $conf['uid']);
             return '';
         }
 
@@ -123,12 +107,12 @@ final class MastodonApiRequester
     /**
      * Get URL path for Api call
      *
-     * @param Configuration $conf
+     * @param array $conf
      * @return string
      */
-    private function getApiUrlPath(Configuration $conf): string
+    private function getApiUrlPath(array $conf): string
     {
-        switch ($conf->getApiMethod()) {
+        switch ($conf['api_method']) {
             case 'public_timeline':
                 $apiUrlPath = 'timelines/public';
                 break;
@@ -136,13 +120,13 @@ final class MastodonApiRequester
                 $apiUrlPath = 'timelines/home';
                 break;
             case 'list_timeline':
-                $apiUrlPath = 'timelines/list/' . $conf->getListId();
+                $apiUrlPath = 'timelines/list/' . $conf['list_id'];
                 break;
             case 'accounts':
-                $apiUrlPath = 'accounts/' . $conf->getAccountId(). '/statuses';
+                $apiUrlPath = 'accounts/' . $conf['account_id'] . '/statuses';
                 break;
             case 'hashtag_timeline':
-                $apiUrlPath = 'timelines/tag/' . $conf->getHashtag();
+                $apiUrlPath = 'timelines/tag/' . $conf['hashtag'];
                 break;
             default:
                 $apiUrlPath = '';
@@ -154,16 +138,16 @@ final class MastodonApiRequester
     /**
      * Get params for querying the api
      *
-     * @param Configuration $conf
+     * @param array $conf
      * @return string
      */
-    private function getApiParams(Configuration $conf): string
+    private function getApiParams(array $conf): string
     {
         $apiParams = '?';
-        $apiParams .= $conf->getOnlyMedia()? 'only_media=1&':'';
-        $apiParams .= $conf->getExcludeReplies()? 'exclude_replies=1&':'';
-        $apiParams .= $conf->getExcludeReblogs()? 'exclude_reblogs=1&':'';
-        $apiParams .= $conf->getOnlyPinned()? 'pinned=1&':'';
+        $apiParams .= $conf['only_media']? 'only_media=1&':'';
+        $apiParams .= $conf['exclude_replies']? 'exclude_replies=1&':'';
+        $apiParams .= $conf['exclude_reblogs']? 'exclude_reblogs=1&':'';
+        $apiParams .= $conf['only_pinned']? 'pinned=1&':'';
 
         return $apiParams;
     }

@@ -115,7 +115,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => ''
             ],
         ],
@@ -127,6 +128,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
+                'required' => true,
                 'default' => ''
             ],
         ],
@@ -138,6 +140,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
+                'required' => true,
                 'default' => ''
             ],
         ],
@@ -149,7 +152,8 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'items' => [
                     ['', ''],
                     ['Accounts', 'accounts'],
