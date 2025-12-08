@@ -12,6 +12,7 @@ defined('TYPO3') || die();
         // non-cacheable actions
         [
             \Mediadreams\MdMastodon\Controller\ConfigurationController::class => ''
-        ]
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 })();
