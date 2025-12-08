@@ -17,7 +17,10 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title,data',
-        'iconfile' => 'EXT:md_mastodon/Resources/Public/Icons/ApiConfiguration.svg'
+        'iconfile' => 'EXT:md_mastodon/Resources/Public/Icons/ApiConfiguration.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'title, api_token, api_url, api_method, --palette--;;accountsPalette, --palette--;;hashtagPalette, --palette--;;listPalette, --linebreak--, only_media, update_frequency, import_date, data, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
