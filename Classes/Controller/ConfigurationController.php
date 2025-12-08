@@ -24,13 +24,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-
-    /**
-     * configurationRepository
-     *
-     * @var ConfigurationRepository
-     */
-    protected $configurationRepository = null;
+    protected ConfigurationRepository $configurationRepository;
 
     /**
      * @param ConfigurationRepository $configurationRepository
@@ -51,9 +45,9 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
         $configuration = $this->configurationRepository->findByUid($this->settings['configId']);
 
         $cachedInPages = $configuration->getCachedInPages();
-        if (!in_array($this->getTypoScriptFrontendController()->id, $cachedInPages)) {
+        if (is_array($cachedInPages) && !in_array($this->getTypoScriptFrontendController()->id, $cachedInPages)) {
             // Add page id to $cachedInPages
-            array_push($cachedInPages, $this->getTypoScriptFrontendController()->id);
+            $cachedInPages[] = $this->getTypoScriptFrontendController()->id;
             $configuration->setCachedInPages($cachedInPages);
             $this->configurationRepository->update($configuration);
         }
@@ -67,6 +61,6 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
 
     protected function getTypoScriptFrontendController(): ?TypoScriptFrontendController
     {
-        return $GLOBALS['TSFE'] ?? null;
+        return $this->request->getAttribute('frontend.controller') ?? null;
     }
 }
