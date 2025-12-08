@@ -27,21 +27,23 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $title = null;
+    protected string $title;
 
     /**
      * The Mastodon Api url
      *
      * @var string
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $apiUrl = null;
+    protected string $apiUrl;
 
     /**
      * Mastodon API token
      *
      * @var string
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $apiToken = null;
+    protected string $apiToken;
 
     /**
      * Mastodon API method
@@ -49,399 +51,242 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $apiMethod = null;
+    protected string $apiMethod;
 
     /**
-     * Mastodon account ID
+     * The ID of the Account in the database
      *
-     * @var int
+     * @var int|null
      */
-    protected $accountId = null;
+    protected ?int $accountId = null;
 
     /**
+     * Show only statuses with media attached
+     *
      * @var bool
      */
-    protected $onlyMedia = false;
+    protected bool $onlyMedia = false;
 
     /**
+     * Filter out statuses in reply to a different account
+     *
      * @var bool
      */
-    protected $excludeReplies = false;
+    protected bool $excludeReplies = false;
 
     /**
+     * Filter out boosts from the response
+     *
      * @var bool
      */
-    protected $excludeReblogs = false;
+    protected bool $excludeReblogs = false;
 
     /**
+     * Filter for pinned statuses only
+     *
      * @var bool
      */
-    protected $onlyPinned = false;
+    protected bool $onlyPinned = false;
 
     /**
      * Mastodon API hashtag
      *
-     * @var string
+     * @var string|null
      */
-    protected $hashtag = null;
+    protected ?string $hashtag = null;
 
     /**
      * Mastodon API list ID
      *
-     * @var string
+     * @var string|null
      */
-    protected $listId = null;
+    protected ?string $listId = null;
 
     /**
      * Update frequency in seconds
      *
-     * @var int
+     * @var int|null
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $updateFrequency = null;
+    protected ?int $updateFrequency = null;
 
     /**
      * Date of last update
      *
-     * @var \DateTime
+     * @var \DateTime|null
      */
-    protected $importDate = null;
+    protected ?\DateTime $importDate = null;
 
     /**
      * JSON response of the api call
      *
      * @var string
      */
-    protected $data = null;
+    protected string $data = '';
 
     /**
      * Comma seperated page Uids, where feed is cached
      *
-     * @var string
+     * @var string|null
      */
-    protected $cachedInPages = null;
+    protected ?string $cachedInPages = null;
 
-    /**
-     * Returns the title
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     * @return void
-     */
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * Returns the apiUrl
-     *
-     * @return string
-     */
-    public function getApiUrl()
+    public function getApiUrl(): string
     {
         return $this->apiUrl;
     }
 
-    /**
-     * Sets the apiUrl
-     *
-     * @param string $apiUrl
-     * @return void
-     */
-    public function setApiUrl(string $apiUrl)
+    public function setApiUrl(string $apiUrl): void
     {
         $this->apiUrl = $apiUrl;
     }
 
-    /**
-     * Returns the apiToken
-     *
-     * @return string
-     */
-    public function getApiToken()
+    public function getApiToken(): string
     {
         return $this->apiToken;
     }
 
-    /**
-     * Sets the apiToken
-     *
-     * @param string $apiToken
-     * @return void
-     */
-    public function setApiToken(string $apiToken)
+    public function setApiToken(string $apiToken): void
     {
         $this->apiToken = $apiToken;
     }
 
-    /**
-     * Returns the apiMethod
-     *
-     * @return string
-     */
-    public function getApiMethod()
+    public function getApiMethod(): string
     {
         return $this->apiMethod;
     }
 
-    /**
-     * Sets the apiMethod
-     *
-     * @param string $apiMethod
-     * @return void
-     */
-    public function setApiMethod(string $apiMethod)
+    public function setApiMethod(string $apiMethod): void
     {
         $this->apiMethod = $apiMethod;
     }
 
-    /**
-     * Returns the accountId
-     *
-     * @return int
-     */
-    public function getAccountId()
+    public function getAccountId(): ?int
     {
         return $this->accountId;
     }
 
-    /**
-     * Sets the accountId
-     *
-     * @param int $accountId
-     * @return void
-     */
-    public function setAccountId(int $accountId)
+    public function setAccountId(?int $accountId): void
     {
         $this->accountId = $accountId;
     }
 
-    /**
-     * Get only media
-     *
-     * @return bool
-     */
-    public function getOnlyMedia(): bool
+    public function isOnlyMedia(): bool
     {
         return $this->onlyMedia;
     }
 
-    /**
-     * Set only media
-     *
-     * @param bool $onlyMedia
-     * @return void
-     */
-    public function setOnlyMedia($onlyMedia): void
+    public function setOnlyMedia(bool $onlyMedia): void
     {
         $this->onlyMedia = $onlyMedia;
     }
 
-    /**
-     * Get exclude replies
-     *
-     * @return bool
-     */
-    public function getExcludeReplies(): bool
+    public function isExcludeReplies(): bool
     {
         return $this->excludeReplies;
     }
 
-    /**
-     * Set exclude replies
-     *
-     * @param bool $excludeReplies
-     * @return void
-     */
-    public function setExcludeReplies($excludeReplies): void
+    public function setExcludeReplies(bool $excludeReplies): void
     {
         $this->excludeReplies = $excludeReplies;
     }
 
-    /**
-     * Get exclude reblogs
-     *
-     * @return bool
-     */
-    public function getExcludeReblogs(): bool
+    public function isExcludeReblogs(): bool
     {
         return $this->excludeReblogs;
     }
 
-    /**
-     * Set exclude reblogs
-     *
-     * @param bool $excludeReblogs
-     * @return void
-     */
-    public function setExcludeReblogs($excludeReblogs): void
+    public function setExcludeReblogs(bool $excludeReblogs): void
     {
         $this->excludeReblogs = $excludeReblogs;
     }
 
-    /**
-     * Get hashtag
-     *
-     * @return string
-     */
-    public function getHashtag(): string
-    {
-        return $this->hashtag;
-    }
-
-    /**
-     * Set hashtag
-     *
-     * @param string $hashtag
-     * @return void
-     */
-    public function setHashtag($hashtag): void
-    {
-        $this->hashtag = $hashtag;
-    }
-
-    /**
-     * Get list ID
-     *
-     * @return string
-     */
-    public function getListId(): string
-    {
-        return $this->listId;
-    }
-
-    /**
-     * Set list Id
-     *
-     * @param string $listId
-     * @return void
-     */
-    public function setListId($listId): void
-    {
-        $this->listId = $listId;
-    }
-
-    /**
-     * Get only pinned
-     *
-     * @return bool
-     */
-    public function getOnlyPinned(): bool
+    public function isOnlyPinned(): bool
     {
         return $this->onlyPinned;
     }
 
-    /**
-     * Set only pinned
-     *
-     * @param bool $onlyPinned
-     * @return void
-     */
-    public function setOnlyPinned($onlyPinned): void
+    public function setOnlyPinned(bool $onlyPinned): void
     {
         $this->onlyPinned = $onlyPinned;
     }
 
-    /**
-     * Returns the updateFrequency
-     *
-     * @return int
-     */
-    public function getUpdateFrequency(): int
+    public function getHashtag(): ?string
+    {
+        return $this->hashtag;
+    }
+
+    public function setHashtag(?string $hashtag): void
+    {
+        $this->hashtag = $hashtag;
+    }
+
+    public function getListId(): ?string
+    {
+        return $this->listId;
+    }
+
+    public function setListId(?string $listId): void
+    {
+        $this->listId = $listId;
+    }
+
+    public function getUpdateFrequency(): ?int
     {
         return $this->updateFrequency;
     }
 
-    /**
-     * Sets the updateFrequency
-     *
-     * @param int $updateFrequency
-     * @return void
-     */
-    public function setUpdateFrequency(int $updateFrequency)
+    public function setUpdateFrequency(?int $updateFrequency): void
     {
         $this->updateFrequency = $updateFrequency;
     }
 
-    /**
-     * Returns the importDate
-     *
-     * @return \DateTime
-     */
-    public function getImportDate()
+    public function getImportDate(): ?\DateTime
     {
         return $this->importDate;
     }
 
-    /**
-     * Sets the importDate
-     *
-     * @param int $importDate
-     * @return void
-     */
-    public function setImportDate(int $importDate)
+    public function setImportDate(?\DateTime $importDate): void
     {
         $this->importDate = $importDate;
     }
 
-    /**
-     * Returns the data
-     *
-     * @return array|string
-     */
-    public function getData()
+    public function getData(): array|string
     {
         return json_decode($this->data, true);
     }
 
-    /**
-     * Sets the data
-     *
-     * @param string $data
-     * @return void
-     */
-    public function setData(string $data)
+    public function setData(string $data): void
     {
         $this->data = $data;
     }
 
-    /**
-     * Returns the cachedInPages
-     *
-     * @return array|string
-     */
     public function getCachedInPages()
     {
-        return json_decode($this->cachedInPages, true);
+        return $this->cachedInPages;
     }
 
-    /**
-     * Sets the cachedInPages
-     *
-     * @param array $cachedInPages
-     * @return void
-     */
-    public function setCachedInPages(array $cachedInPages)
+    public function getCachedInPagesArr(): array
+    {
+        return json_decode($this->cachedInPages, true) ?? [];
+    }
+
+    public function setCachedInPages(array $cachedInPages): void
     {
         $this->cachedInPages = json_encode($cachedInPages);
     }
 
-    /**
-     * Reset cachedInPages
-     *
-     * @return void
-     */
-    public function resetCachedInPages()
+    public function resetCachedInPages(): void
     {
         $this->cachedInPages = json_encode([]);
     }

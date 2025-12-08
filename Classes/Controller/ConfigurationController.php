@@ -44,8 +44,8 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
         /** @var \Mediadreams\MdMastodon\Domain\Model\Configuration $configuration */
         $configuration = $this->configurationRepository->findByUid($this->settings['configId']);
 
-        $cachedInPages = $configuration->getCachedInPages();
-        if (is_array($cachedInPages) && !in_array($this->getTypoScriptFrontendController()->id, $cachedInPages)) {
+        $cachedInPages = $configuration->getCachedInPagesArr();
+        if (!in_array($this->getTypoScriptFrontendController()->id, $cachedInPages)) {
             // Add page id to $cachedInPages
             $cachedInPages[] = $this->getTypoScriptFrontendController()->id;
             $configuration->setCachedInPages($cachedInPages);

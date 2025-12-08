@@ -29,20 +29,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ImagesService
 {
-    /**
-     * @var string
-     */
-    protected $imageFolder = 'typo3temp/assets/tx_mdmastodon/';
-
-    /**
-     * @var RequestFactory
-     */
-    protected $requestFactory;
-
-    /**
-     * @var Logger
-     */
-    protected $logger;
+    protected string $imageFolder = 'typo3temp/assets/tx_mdmastodon/';
+    protected RequestFactory $requestFactory;
+    protected Logger $logger;
 
     /**
      * Iterate over entries and get images
