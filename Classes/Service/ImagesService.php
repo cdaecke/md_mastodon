@@ -139,7 +139,7 @@ class ImagesService
      * @param string $path absolute path
      * @return void
      */
-    protected function createFolderIfNotExists(string $path)
+    protected function createFolderIfNotExists(string $path): void
     {
         if (!is_dir($path)) {
             try {

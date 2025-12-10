@@ -17,6 +17,7 @@ namespace Mediadreams\MdMastodon\Hooks;
  */
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Localization\LanguageService;
 
 /**
  * Hook for Template Layouts
@@ -28,11 +29,12 @@ class TemplateLayouts
      */
     public function user_templateLayout(array &$config): void
     {
+        $languageService = $this->getLanguageService();
         $templateLayouts = $this->getTemplateLayoutsFromTsConfig($config['flexParentDatabaseRow']['pid']);
         foreach ($templateLayouts as $index => $layout) {
             $additionalLayout = [
-                $GLOBALS['LANG']->sL($layout),
-                $index,
+                'label' => $languageService->sL($layout),
+                'value' => $index,
             ];
             $config['items'][] = $additionalLayout;
         }
@@ -52,5 +54,10 @@ class TemplateLayouts
         }
 
         return $templateLayouts;
+    }
+
+    protected function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
     }
 }
