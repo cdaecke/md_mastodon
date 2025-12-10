@@ -5,7 +5,6 @@ return [
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'versioningWS' => true,
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -17,7 +16,10 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title,data',
-        'iconfile' => 'EXT:md_mastodon/Resources/Public/Icons/ApiConfiguration.svg'
+        'iconfile' => 'EXT:md_mastodon/Resources/Public/Icons/ApiConfiguration.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'title, api_token, api_url, api_method, --palette--;;accountsPalette, --palette--;;hashtagPalette, --palette--;;listPalette, --linebreak--, only_media, update_frequency, import_date, data, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
@@ -37,6 +39,8 @@ return [
         ],
     ],
     'columns' => [
+        // TODO: Update as soon as TYPO3 v12 support is dropped
+        // https://docs.typo3.org/m/typo3/reference-tca/13.4/en-us/Ctrl/EnableColumns.html#ctrl-reference-enablecolumns-migration
         'sys_language_uid' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
@@ -50,31 +54,34 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'default' => 0,
                 'items' => [
-                    ['', 0],
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ],
                 ],
                 'foreign_table' => 'tx_mdmastodon_domain_model_configuration',
                 'foreign_table_where' => 'AND {#tx_mdmastodon_domain_model_configuration}.{#pid}=###CURRENT_PID### AND {#tx_mdmastodon_domain_model_configuration}.{#sys_language_uid} IN (-1,0)',
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
             'config' => [
                 'type' => 'passthrough',
+                'default' => '',
             ],
         ],
         'hidden' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.visible',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.enabled',
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => '',
-                        1 => '',
-                        'invertStateDisplay' => true
-                    ]
+                        'label' => '',
+                        'invertStateDisplay' => true,
+                    ],
                 ],
             ],
         ],
@@ -82,30 +89,24 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
+                'type' => 'datetime',
                 'default' => 0,
-                'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
             ],
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
         ],
         'endtime' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
+                'type' => 'datetime',
                 'default' => 0,
                 'range' => [
-                    'upper' => mktime(0, 0, 0, 1, 1, 2038)
+                    'upper' => mktime(0, 0, 0, 1, 1, 2038),
                 ],
-                'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
             ],
+            'l10n_mode' => 'exclude',
+            'l10n_display' => 'defaultAsReadonly',
         ],
 
         'title' => [
@@ -155,12 +156,12 @@ return [
                 'eval' => 'trim',
                 'required' => true,
                 'items' => [
-                    ['', ''],
-                    ['Accounts', 'accounts'],
-                    ['Hashtag timeline', 'hashtag_timeline'],
-                    ['Home timeline', 'home_timeline'],
-                    ['List timeline', 'list_timeline'],
-                    ['Public timeline', 'public_timeline'],
+                    ['label' => '', 'value' => ''],
+                    ['label' => 'Accounts', 'value' => 'accounts'],
+                    ['label' => 'Hashtag timeline', 'value' => 'hashtag_timeline'],
+                    ['label' => 'Home timeline', 'value' => 'home_timeline'],
+                    ['label' => 'List timeline', 'value' => 'list_timeline'],
+                    ['label' => 'Public timeline', 'value' => 'public_timeline'],
                 ],
             ],
         ],
@@ -169,9 +170,10 @@ return [
             'label' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.update_frequency',
             'description' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.update_frequency.description',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'trim,num,required',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => '3600'
             ],
         ],
@@ -180,10 +182,9 @@ return [
             'label' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.import_date',
             'description' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.import_date.description',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
+                'format' => 'datetime',
                 'size' => 20,
-                'eval' => 'datetime',
                 'readOnly' => true,
                 'default' => 0
             ],
@@ -195,7 +196,7 @@ return [
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
-                'rows' => 15,
+                'rows' => 3,
                 'eval' => 'trim',
                 'readOnly' => true,
                 'default' => ''
@@ -239,7 +240,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => '0'
             ]
         ],
@@ -253,7 +255,7 @@ return [
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.exclude_replies.0',
+                        'label' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.exclude_replies.0',
                         'labelChecked' => 'Enabled',
                         'labelUnchecked' => 'Disabled',
                     ],
@@ -270,7 +272,7 @@ return [
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.exclude_reblogs.0',
+                        'label' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.exclude_reblogs.0',
                         'labelChecked' => 'Enabled',
                         'labelUnchecked' => 'Disabled',
                     ],
@@ -287,7 +289,7 @@ return [
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.only_pinned.0',
+                        'label' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration.only_pinned.0',
                         'labelChecked' => 'Enabled',
                         'labelUnchecked' => 'Disabled',
                     ],

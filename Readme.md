@@ -10,7 +10,7 @@ Example of Mastodon social wall:
 
 ## Requirements
 
-- TYPO3 v11.5 | v12.4
+- TYPO3 v12.4 | v13.4
 
 ## Installation
 

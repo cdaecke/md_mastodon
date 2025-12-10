@@ -34,21 +34,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ImportCommand extends Command
 {
     protected string $table = 'tx_mdmastodon_domain_model_configuration';
-
-    /**
-     * @var MastodonApiRequester
-     */
-    protected $mastodonApiRequester;
-
-    /**
-     * @var ImagesService
-     */
-    protected $imagesService;
-
-    /**
-     * @var Logger
-     */
-    protected $logger;
+    protected MastodonApiRequester $mastodonApiRequester;
+    protected ImagesService $imagesService;
+    protected Logger $logger;
 
     /**
      * ImportFeedCommand constructor.
@@ -157,7 +145,7 @@ class ImportCommand extends Command
      *
      * @param array $pages Array with page Uids
      */
-    private function clearCachedPages(array $pages)
+    private function clearCachedPages(array $pages): void
     {
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         foreach ($pages as $page) {

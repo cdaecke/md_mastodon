@@ -17,25 +17,21 @@ namespace Mediadreams\MdMastodon\Controller;
  */
 
 use Mediadreams\MdMastodon\Domain\Repository\ConfigurationRepository;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * ConfigurationController
  */
-class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class ConfigurationController extends ActionController
 {
-
-    /**
-     * configurationRepository
-     *
-     * @var ConfigurationRepository
-     */
-    protected $configurationRepository = null;
+    protected ConfigurationRepository $configurationRepository;
 
     /**
      * @param ConfigurationRepository $configurationRepository
      */
-    public function injectConfigurationRepository(ConfigurationRepository $configurationRepository)
+    public function injectConfigurationRepository(ConfigurationRepository $configurationRepository): void
     {
         $this->configurationRepository = $configurationRepository;
     }
@@ -43,17 +39,17 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
     /**
      * action show
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    public function showAction(): \Psr\Http\Message\ResponseInterface
+    public function showAction(): ResponseInterface
     {
         /** @var \Mediadreams\MdMastodon\Domain\Model\Configuration $configuration */
         $configuration = $this->configurationRepository->findByUid($this->settings['configId']);
 
-        $cachedInPages = $configuration->getCachedInPages();
+        $cachedInPages = $configuration->getCachedInPagesArr();
         if (!in_array($this->getTypoScriptFrontendController()->id, $cachedInPages)) {
             // Add page id to $cachedInPages
-            array_push($cachedInPages, $this->getTypoScriptFrontendController()->id);
+            $cachedInPages[] = $this->getTypoScriptFrontendController()->id;
             $configuration->setCachedInPages($cachedInPages);
             $this->configurationRepository->update($configuration);
         }
@@ -67,6 +63,6 @@ class ConfigurationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCo
 
     protected function getTypoScriptFrontendController(): ?TypoScriptFrontendController
     {
-        return $GLOBALS['TSFE'] ?? null;
+        return $this->request->getAttribute('frontend.controller') ?? null;
     }
 }

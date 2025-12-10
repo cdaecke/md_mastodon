@@ -25,25 +25,14 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 final class MastodonApiRequester
 {
     /**
-     * @var RequestFactory
-     */
-    protected RequestFactory $requestFactory;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected LoggerInterface $logger;
-
-    /**
      * MastodonApiRequester constructor.
      * @param RequestFactory $requestFactory
      * @param LoggerInterface $logger
      */
-    public function __construct(RequestFactory $requestFactory, LoggerInterface $logger)
-    {
-        $this->requestFactory = $requestFactory;
-        $this->logger = $logger;
-    }
+    public function __construct(
+        protected RequestFactory $requestFactory,
+        protected LoggerInterface $logger
+    ) { }
 
     /**
      * @param array $conf
