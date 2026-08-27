@@ -32,6 +32,9 @@ class ImagesService
     protected string $imageFolder = 'typo3temp/assets/tx_mdmastodon/';
     protected RequestFactory $requestFactory;
     protected Logger $logger;
+    public function __construct(private readonly LogManager $logManager)
+    {
+    }
 
     /**
      * Iterate over entries and get images
@@ -44,7 +47,7 @@ class ImagesService
         $data = json_decode($data, true);
         $this->requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
 
-        $logManager = GeneralUtility::makeInstance(LogManager::class);
+        $logManager = $this->logManager;
         $this->logger = $logManager->getLogger(self::class);
 
         $path = GeneralUtility::getFileAbsFileName($this->imageFolder);
@@ -144,7 +147,7 @@ class ImagesService
         if (!is_dir($path)) {
             try {
                 GeneralUtility::mkdir_deep($path);
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 $this->logger->error('Folder could not be created.', ['Folder' => $path]);
                 throw new \UnexpectedValueException('Folder ' . $path . ' could not be created', 1688103542);
             }

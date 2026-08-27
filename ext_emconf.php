@@ -7,7 +7,6 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Christoph Daecke',
     'author_email' => 'typo3@mediadreams.org',
     'state' => 'stable',
-    'clearCacheOnLoad' => 0,
     'version' => '1.0.0',
     'constraints' => [
         'depends' => [

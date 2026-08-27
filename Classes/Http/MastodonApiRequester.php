@@ -64,7 +64,7 @@ final class MastodonApiRequester
                 'statusCode' => $response->getStatusCode()
             ]);
 
-            throw new \RuntimeException('Returned status code is ' . $response->getStatusCode());
+            throw new \RuntimeException('Returned status code is ' . $response->getStatusCode(), 2558427448);
         }
 
         return $response->getBody()->getContents();
@@ -101,25 +101,14 @@ final class MastodonApiRequester
      */
     private function getApiUrlPath(array $conf): string
     {
-        switch ($conf['api_method']) {
-            case 'public_timeline':
-                $apiUrlPath = 'timelines/public';
-                break;
-            case 'home_timeline':
-                $apiUrlPath = 'timelines/home';
-                break;
-            case 'list_timeline':
-                $apiUrlPath = 'timelines/list/' . $conf['list_id'];
-                break;
-            case 'accounts':
-                $apiUrlPath = 'accounts/' . $conf['account_id'] . '/statuses';
-                break;
-            case 'hashtag_timeline':
-                $apiUrlPath = 'timelines/tag/' . $conf['hashtag'];
-                break;
-            default:
-                $apiUrlPath = '';
-        }
+        $apiUrlPath = match ($conf['api_method']) {
+            'public_timeline' => 'timelines/public',
+            'home_timeline' => 'timelines/home',
+            'list_timeline' => 'timelines/list/' . $conf['list_id'],
+            'accounts' => 'accounts/' . $conf['account_id'] . '/statuses',
+            'hashtag_timeline' => 'timelines/tag/' . $conf['hashtag'],
+            default => '',
+        };
 
         return $apiUrlPath;
     }

@@ -27,14 +27,31 @@
         "typo3/cms-core": "^13.4 || ^14.3",
         "typo3/cms-scheduler": "^13.4 || ^14.3"
     },
+    "require-dev": {
+        "a9f/typo3-fractor": "^1.0",
+        "rector/rector": ">=2.6.3,<2.6.4",
+        "ssch/typo3-rector": "^3.15"
+    },
     "autoload": {
         "psr-4": {
             "Mediadreams\\MdMastodon\\": "Classes"
         }
     },
+    "config": {
+        "allow-plugins": {
+            "a9f/fractor-extension-installer": true,
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "bin-dir": ".Build/bin",
+        "lock": false,
+        "sort-packages": true,
+        "vendor-dir": ".Build/vendor"
+    },
     "extra": {
         "typo3/cms": {
-            "extension-key": "md_mastodon"
+            "extension-key": "md_mastodon",
+            "web-dir": ".Build/public"
         }
     }
 }

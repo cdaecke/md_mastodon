@@ -14,13 +14,13 @@ namespace Mediadreams\MdMastodon\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * Configuration
  */
-class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Configuration extends AbstractEntity
 {
 
     /**

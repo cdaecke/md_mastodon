@@ -1,18 +1,21 @@
 <?php
 
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use Mediadreams\MdMastodon\Controller\ConfigurationController;
+
 defined('TYPO3') || die();
 
 (static function () {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    ExtensionUtility::configurePlugin(
         'MdMastodon',
         'Api',
         [
-            \Mediadreams\MdMastodon\Controller\ConfigurationController::class => 'show'
+            ConfigurationController::class => 'show'
         ],
         // non-cacheable actions
         [
-            \Mediadreams\MdMastodon\Controller\ConfigurationController::class => ''
+            ConfigurationController::class => ''
         ],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 })();
