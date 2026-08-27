@@ -38,6 +38,7 @@
         "phpstan/phpstan": "^2.0",
         "rector/rector": ">=2.6.3,<2.6.4",
         "ssch/typo3-rector": "^3.15",
+        "typo3/cms-fluid-styled-content": "^13.4 || ^14.3",
         "typo3/coding-standards": "^0.9",
         "typo3/testing-framework": "^9.5"
     },
@@ -75,6 +76,7 @@
         "check:phpstan": "@check:phpstan:14.3",
         "check:phpstan:13.4": "phpstan analyse --configuration=Build/phpstan/TYPO3_13.4/phpstan.neon",
         "check:phpstan:14.3": "phpstan analyse --configuration=Build/phpstan/TYPO3_14.3/phpstan.neon",
+        "check:tests:functional": "typo3DatabaseDriver=pdo_sqlite phpunit -c Build/phpunit/FunctionalTests.xml",
         "check:tests:unit": "phpunit -c Build/phpunit/UnitTests.xml",
         "fix:php:cs-fixer": "php-cs-fixer fix --config=Build/php-cs-fixer/config.php",
         "fix:php:fractor": "fractor process --config=Build/fractor/config.php",
@@ -87,6 +89,7 @@
         "check:phpstan": "Runs the PHPStan static analysis (against TYPO3 v14.3).",
         "check:phpstan:13.4": "Runs the PHPStan static analysis against TYPO3 v13.4.",
         "check:phpstan:14.3": "Runs the PHPStan static analysis against TYPO3 v14.3.",
+        "check:tests:functional": "Runs the functional tests.",
         "check:tests:unit": "Runs the unit tests.",
         "fix:php:cs-fixer": "Fixes the code style with PHP-CS-Fixer.",
         "fix:php:fractor": "Applies non-PHP code migrations with Fractor.",

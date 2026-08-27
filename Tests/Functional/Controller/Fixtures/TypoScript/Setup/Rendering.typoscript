@@ -1,0 +1,7 @@
+page = PAGE
+page.10 < styles.content.get
+
+plugin.tx_mdmastodon_api.settings {
+    configId = 1
+    limit = 2
+}
