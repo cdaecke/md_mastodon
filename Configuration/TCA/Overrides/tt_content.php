@@ -5,12 +5,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 defined('TYPO3') || die();
 
 $frontendPluginSignature = ExtensionUtility::registerPlugin(
-    'MdMastodon',
-    'Api',
-    'Mastodon',
-    null,
-    null,
-    'Show configured Mastodon items (toots).'
+    extensionName: 'MdMastodon',
+    pluginName: 'Api',
+    pluginTitle: 'Mastodon',
+    pluginDescription: 'Show configured Mastodon items (toots).',
 );
 
 ExtensionManagementUtility::addToAllTCAtypes(

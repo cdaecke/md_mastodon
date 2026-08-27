@@ -24,11 +24,17 @@
     },
     "require": {
         "php": "^8.2",
+        "typo3/cms-backend": "^13.4 || ^14.3",
         "typo3/cms-core": "^13.4 || ^14.3",
+        "typo3/cms-extbase": "^13.4 || ^14.3",
+        "typo3/cms-fluid": "^13.4 || ^14.3",
+        "typo3/cms-frontend": "^13.4 || ^14.3",
+        "typo3/cms-install": "^13.4 || ^14.3",
         "typo3/cms-scheduler": "^13.4 || ^14.3"
     },
     "require-dev": {
         "a9f/typo3-fractor": "^1.0",
+        "phpstan/phpstan": "^2.0",
         "rector/rector": ">=2.6.3,<2.6.4",
         "ssch/typo3-rector": "^3.15"
     },
@@ -53,5 +59,23 @@
             "extension-key": "md_mastodon",
             "web-dir": ".Build/public"
         }
+    },
+    "scripts": {
+        "check:php:fractor": "fractor process --dry-run --config=Build/fractor/config.php",
+        "check:php:rector": "rector process --dry-run --config=Build/rector/config.php",
+        "check:phpstan": "@check:phpstan:14.3",
+        "check:phpstan:13.4": "phpstan analyse --configuration=Build/phpstan/TYPO3_13.4/phpstan.neon",
+        "check:phpstan:14.3": "phpstan analyse --configuration=Build/phpstan/TYPO3_14.3/phpstan.neon",
+        "fix:php:fractor": "fractor process --config=Build/fractor/config.php",
+        "fix:php:rector": "rector process --config=Build/rector/config.php"
+    },
+    "scripts-descriptions": {
+        "check:php:fractor": "Checks for non-PHP code migrations (TypoScript, FlexForms, etc.) with Fractor.",
+        "check:php:rector": "Checks for PHP code migrations with Rector.",
+        "check:phpstan": "Runs the PHPStan static analysis (against TYPO3 v14.3).",
+        "check:phpstan:13.4": "Runs the PHPStan static analysis against TYPO3 v13.4.",
+        "check:phpstan:14.3": "Runs the PHPStan static analysis against TYPO3 v14.3.",
+        "fix:php:fractor": "Applies non-PHP code migrations with Fractor.",
+        "fix:php:rector": "Applies PHP code migrations with Rector."
     }
 }

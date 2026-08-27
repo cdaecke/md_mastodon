@@ -16,7 +16,6 @@ return RectorConfig::configure()
         __DIR__ . '/../../Configuration/',
         __DIR__ . '/../../ext_emconf.php',
         __DIR__ . '/../../ext_localconf.php',
-        __DIR__ . '/../../ext_tables.php',
     ])
     ->withPhpSets()
     ->withComposerBased(phpunit: true)

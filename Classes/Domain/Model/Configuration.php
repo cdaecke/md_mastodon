@@ -273,7 +273,7 @@ class Configuration extends AbstractEntity
         $this->data = $data;
     }
 
-    public function getCachedInPages()
+    public function getCachedInPages(): ?string
     {
         return $this->cachedInPages;
     }

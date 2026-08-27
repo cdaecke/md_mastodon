@@ -70,7 +70,7 @@ class ImagesService
                 } else {
                     $imageUrl = $data[$i]['reblog']['media_attachments'][0]['url'];
                 }
-            } elseif (empty($imageUrl) && !empty($data[$i]['reblog']['card']['image'])) {
+            } elseif (!empty($data[$i]['reblog']['card']['image'])) {
                 $imageUrl = $data[$i]['reblog']['card']['image'];
             }
 
