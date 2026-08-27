@@ -48,25 +48,7 @@ class ImagesService
         $this->createFolderIfNotExists($path);
 
         for ($i = 0; $i < count($data); $i++) {
-            $imageUrl = false;
-
-            if (is_array($data[$i]['media_attachments']) && count($data[$i]['media_attachments']) > 0) {
-                if ($data[$i]['media_attachments'][0]['type'] == 'video') {
-                    $imageUrl = $data[$i]['media_attachments'][0]['preview_url'];
-                } else {
-                    $imageUrl = $data[$i]['media_attachments'][0]['url'];
-                }
-            } elseif (is_array($data[$i]['card']) && $data[$i]['card']['image']) {
-                $imageUrl = $data[$i]['card']['image'];
-            } elseif (is_array($data[$i]['reblog']) && $data[$i]['reblog']['media_attachments']) {
-                if ($data[$i]['reblog']['media_attachments'][0]['type'] == 'video') {
-                    $imageUrl = $data[$i]['reblog']['media_attachments'][0]['preview_url'];
-                } else {
-                    $imageUrl = $data[$i]['reblog']['media_attachments'][0]['url'];
-                }
-            } elseif (!empty($data[$i]['reblog']['card']['image'])) {
-                $imageUrl = $data[$i]['reblog']['card']['image'];
-            }
+            $imageUrl = $this->resolveImageUrl($data[$i]);
 
             if ($imageUrl !== false) {
                 $imageExt = strrchr($imageUrl, '.');
@@ -100,6 +82,39 @@ class ImagesService
         }
 
         return json_encode($data);
+    }
+
+    /**
+     * Resolve the most relevant image URL for a single Mastodon status item:
+     * media attachment, card image, reblog media attachment, or reblog card
+     * image (in that priority order). For videos, the preview image is used
+     * instead of the video file itself.
+     *
+     * @param array $item Single item of the Mastodon API result
+     */
+    private function resolveImageUrl(array $item): string|false
+    {
+        if (is_array($item['media_attachments']) && count($item['media_attachments']) > 0) {
+            return $item['media_attachments'][0]['type'] == 'video'
+                ? $item['media_attachments'][0]['preview_url']
+                : $item['media_attachments'][0]['url'];
+        }
+
+        if (is_array($item['card']) && $item['card']['image']) {
+            return $item['card']['image'];
+        }
+
+        if (is_array($item['reblog']) && $item['reblog']['media_attachments']) {
+            return $item['reblog']['media_attachments'][0]['type'] == 'video'
+                ? $item['reblog']['media_attachments'][0]['preview_url']
+                : $item['reblog']['media_attachments'][0]['url'];
+        }
+
+        if (!empty($item['reblog']['card']['image'])) {
+            return $item['reblog']['card']['image'];
+        }
+
+        return false;
     }
 
     /**

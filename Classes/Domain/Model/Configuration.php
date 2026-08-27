@@ -128,9 +128,9 @@ class Configuration extends AbstractEntity
     /**
      * Comma seperated page Uids, where feed is cached
      *
-     * @var string|null
+     * @var string
      */
-    protected ?string $cachedInPages = null;
+    protected string $cachedInPages = '[]';
 
     public function getTitle(): string
     {
@@ -264,7 +264,7 @@ class Configuration extends AbstractEntity
 
     public function getData(): array|string
     {
-        return json_decode($this->data, true);
+        return json_decode($this->data, true) ?? [];
     }
 
     public function setData(string $data): void
@@ -272,7 +272,7 @@ class Configuration extends AbstractEntity
         $this->data = $data;
     }
 
-    public function getCachedInPages(): ?string
+    public function getCachedInPages(): string
     {
         return $this->cachedInPages;
     }

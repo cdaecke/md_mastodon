@@ -38,11 +38,17 @@
         "phpstan/phpstan": "^2.0",
         "rector/rector": ">=2.6.3,<2.6.4",
         "ssch/typo3-rector": "^3.15",
-        "typo3/coding-standards": "^0.9"
+        "typo3/coding-standards": "^0.9",
+        "typo3/testing-framework": "^9.5"
     },
     "autoload": {
         "psr-4": {
             "Mediadreams\\MdMastodon\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mediadreams\\MdMastodon\\Tests\\": "Tests/"
         }
     },
     "config": {
@@ -69,6 +75,7 @@
         "check:phpstan": "@check:phpstan:14.3",
         "check:phpstan:13.4": "phpstan analyse --configuration=Build/phpstan/TYPO3_13.4/phpstan.neon",
         "check:phpstan:14.3": "phpstan analyse --configuration=Build/phpstan/TYPO3_14.3/phpstan.neon",
+        "check:tests:unit": "phpunit -c Build/phpunit/UnitTests.xml",
         "fix:php:cs-fixer": "php-cs-fixer fix --config=Build/php-cs-fixer/config.php",
         "fix:php:fractor": "fractor process --config=Build/fractor/config.php",
         "fix:php:rector": "rector process --config=Build/rector/config.php"
@@ -80,6 +87,7 @@
         "check:phpstan": "Runs the PHPStan static analysis (against TYPO3 v14.3).",
         "check:phpstan:13.4": "Runs the PHPStan static analysis against TYPO3 v13.4.",
         "check:phpstan:14.3": "Runs the PHPStan static analysis against TYPO3 v14.3.",
+        "check:tests:unit": "Runs the unit tests.",
         "fix:php:cs-fixer": "Fixes the code style with PHP-CS-Fixer.",
         "fix:php:fractor": "Applies non-PHP code migrations with Fractor.",
         "fix:php:rector": "Applies PHP code migrations with Rector."

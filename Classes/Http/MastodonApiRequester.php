@@ -39,10 +39,14 @@ final readonly class MastodonApiRequester
      */
     public function request(array $conf): string
     {
-        $url = $this->getApiUrl($conf);
-
         if (empty($conf['api_token'])) {
             $this->logger->error('No API token provided for configuration with Uid ' . $conf['uid']);
+            return '';
+        }
+
+        $url = $this->getApiUrl($conf);
+        if (empty($url)) {
+            // getApiUrl() already logged the specific reason.
             return '';
         }
 
