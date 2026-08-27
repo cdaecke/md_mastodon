@@ -24,12 +24,11 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Log\Logger;
-use \TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class ImportCommand
- * @package Mediadreams\MdMastodon\Command
  */
 class ImportCommand extends Command
 {
@@ -110,7 +109,7 @@ class ImportCommand extends Command
             return Command::SUCCESS;
         } catch (\Exception $exception) {
             $this->logger->error('Import of Mastodon API call failed.', [
-                'exeption' => $exception->getMessage()
+                'exeption' => $exception->getMessage(),
             ]);
 
             $output->writeln('Error with Mastodon API');

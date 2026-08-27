@@ -18,23 +18,20 @@ namespace Mediadreams\MdMastodon\Service;
 
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Log\Logger;
-use \TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Get all images for Mastoton feed and store them in TYPO3
  *
  * Class ImagesService
- * @package Mediadreams\MdMastodon\Service
  */
 class ImagesService
 {
     protected string $imageFolder = 'typo3temp/assets/tx_mdmastodon/';
     protected RequestFactory $requestFactory;
     protected Logger $logger;
-    public function __construct(private readonly LogManager $logManager)
-    {
-    }
+    public function __construct(private readonly LogManager $logManager) {}
 
     /**
      * Iterate over entries and get images
@@ -97,7 +94,7 @@ class ImagesService
                             'Image could not be saved.',
                             [
                                 'itemId' => $data[$i]['id'],
-                                'url' => $imageUrl
+                                'url' => $imageUrl,
                             ]
                         );
                     }
@@ -140,7 +137,6 @@ class ImagesService
      * Create empty folder, if not exists
      *
      * @param string $path absolute path
-     * @return void
      */
     protected function createFolderIfNotExists(string $path): void
     {

@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:md_mastodon/Resources/Private/Language/locallang_db.xlf:tx_mdmastodon_domain_model_configuration',
@@ -78,7 +79,7 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'required' => true,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'api_token' => [
@@ -90,7 +91,7 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'required' => true,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'api_url' => [
@@ -102,7 +103,7 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'required' => true,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'api_method' => [
@@ -134,7 +135,7 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'required' => true,
-                'default' => '3600'
+                'default' => '3600',
             ],
         ],
         'import_date' => [
@@ -146,7 +147,7 @@ return [
                 'format' => 'datetime',
                 'size' => 20,
                 'readOnly' => true,
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'cached_in_pages' => [
@@ -159,8 +160,8 @@ return [
                 'rows' => 3,
                 'eval' => 'trim',
                 'readOnly' => true,
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'data' => [
             'exclude' => true,
@@ -172,8 +173,8 @@ return [
                 'rows' => 15,
                 'eval' => 'trim',
                 'readOnly' => true,
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'only_media' => [
             'exclude' => true,
@@ -202,8 +203,8 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'required' => true,
-                'default' => '0'
-            ]
+                'default' => '0',
+            ],
         ],
         'exclude_replies' => [
             'exclude' => true,
@@ -267,8 +268,8 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'default' => '',
-                'required' => true
-            ]
+                'required' => true,
+            ],
         ],
 
         'list_id' => [
@@ -281,8 +282,8 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'default' => '',
-                'required' => true
-            ]
+                'required' => true,
+            ],
         ],
 
     ],

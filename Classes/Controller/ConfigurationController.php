@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mediadreams\MdMastodon\Controller;
 
-
 /**
  * This file is part of the "Mastodon social networking API" Extension for TYPO3 CMS.
  *
@@ -25,9 +24,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class ConfigurationController extends ActionController
 {
-    public function __construct(protected ConfigurationRepository $configurationRepository)
-    {
-    }
+    public function __construct(protected ConfigurationRepository $configurationRepository) {}
     /**
      * action show
      *
@@ -47,7 +44,7 @@ class ConfigurationController extends ActionController
             $this->configurationRepository->update($configuration);
         }
 
-        $data = is_array($configuration->getData())? $configuration->getData():[];
+        $data = is_array($configuration->getData()) ? $configuration->getData() : [];
         $data = array_slice($data, 0, (int)$this->settings['limit']);
 
         $this->view->assign('items', $data);

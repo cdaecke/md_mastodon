@@ -20,9 +20,8 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 
 /**
  * Class MastodonApiRequester
- * @package Mediadreams\MdMastodon\Http
  */
-final class MastodonApiRequester
+final readonly class MastodonApiRequester
 {
     /**
      * MastodonApiRequester constructor.
@@ -30,9 +29,9 @@ final class MastodonApiRequester
      * @param LoggerInterface $logger
      */
     public function __construct(
-        protected RequestFactory $requestFactory,
-        protected LoggerInterface $logger
-    ) { }
+        private RequestFactory $requestFactory,
+        private LoggerInterface $logger
+    ) {}
 
     /**
      * @param array $conf
@@ -61,7 +60,7 @@ final class MastodonApiRequester
             $this->logger->error('Mastodon API call failed.', [
                 'url' => $url,
                 'additionalOptions' => $additionalOptions,
-                'statusCode' => $response->getStatusCode()
+                'statusCode' => $response->getStatusCode(),
             ]);
 
             throw new \RuntimeException('Returned status code is ' . $response->getStatusCode(), 2558427448);
@@ -122,10 +121,10 @@ final class MastodonApiRequester
     private function getApiParams(array $conf): string
     {
         $apiParams = '?';
-        $apiParams .= $conf['only_media']? 'only_media=1&':'';
-        $apiParams .= $conf['exclude_replies']? 'exclude_replies=1&':'';
-        $apiParams .= $conf['exclude_reblogs']? 'exclude_reblogs=1&':'';
-        $apiParams .= $conf['only_pinned']? 'pinned=1&':'';
+        $apiParams .= $conf['only_media'] ? 'only_media=1&' : '';
+        $apiParams .= $conf['exclude_replies'] ? 'exclude_replies=1&' : '';
+        $apiParams .= $conf['exclude_reblogs'] ? 'exclude_reblogs=1&' : '';
+        $apiParams .= $conf['only_pinned'] ? 'pinned=1&' : '';
 
         return $apiParams;
     }
