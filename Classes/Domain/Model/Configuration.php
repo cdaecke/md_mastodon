@@ -15,6 +15,8 @@ namespace Mediadreams\MdMastodon\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
+
 /**
  * Configuration
  */
@@ -25,32 +27,32 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Title of the configuration
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $title;
 
     /**
      * The Mastodon Api url
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $apiUrl;
 
     /**
      * Mastodon API token
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $apiToken;
 
     /**
      * Mastodon API method
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $apiMethod;
 
     /**
@@ -106,8 +108,8 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Update frequency in seconds
      *
      * @var int|null
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?int $updateFrequency = null;
 
     /**
