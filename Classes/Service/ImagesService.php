@@ -16,9 +16,8 @@ namespace Mediadreams\MdMastodon\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Http\RequestFactory;
-use TYPO3\CMS\Core\Log\Logger;
-use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -29,9 +28,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ImagesService
 {
     protected string $imageFolder = 'typo3temp/assets/tx_mdmastodon/';
-    protected RequestFactory $requestFactory;
-    protected Logger $logger;
-    public function __construct(private readonly LogManager $logManager) {}
+
+    public function __construct(
+        private readonly RequestFactory $requestFactory,
+        private readonly LoggerInterface $logger,
+    ) {}
 
     /**
      * Iterate over entries and get images
@@ -42,10 +43,6 @@ class ImagesService
     public function loadImages(string $data): string
     {
         $data = json_decode($data, true);
-        $this->requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
-
-        $logManager = $this->logManager;
-        $this->logger = $logManager->getLogger(self::class);
 
         $path = GeneralUtility::getFileAbsFileName($this->imageFolder);
         $this->createFolderIfNotExists($path);
