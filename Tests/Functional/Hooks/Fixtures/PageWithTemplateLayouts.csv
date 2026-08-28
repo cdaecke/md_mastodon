@@ -1,0 +1,4 @@
+"pages"
+,"uid","pid","title","TSconfig"
+,1,0,"Page with template layouts","tx_mdmastodon_api.templateLayouts.10 = Special
+tx_mdmastodon_api.templateLayouts.20 = Minimal"
