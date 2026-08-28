@@ -1,4 +1,6 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:md="http://typo3.org/ns/Mediadreams/MdMastodon/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <f:for each="{items}" as="item">
     <f:if condition="{item.card}">
@@ -16,7 +18,7 @@
 
 <f:section name="item">
     <article class="item" itemscope itemtype="https://schema.org/Article">
-        <a href="{link}" target="_blank">
+        <a href="{link -> md:safeUrl()}" target="_blank">
             <f:if condition="{data.local_image_file}">
                 <f:image src="{data.local_image_file}" treatIdAsReference="1" maxWidth="400" maxHeight="400" additionalAttributes="{itemprop:'image'}" />
             </f:if>
