@@ -1,0 +1,17 @@
+categories:
+  md_mastodon: ~
+  md_mastodon.templates:
+    parent: md_mastodon
+settings:
+  md_mastodon.view.templateRootPath:
+    default: 'EXT:md_mastodon/Resources/Private/Templates/'
+    type: string
+    category: md_mastodon.templates
+  md_mastodon.view.partialRootPath:
+    default: 'EXT:md_mastodon/Resources/Private/Partials/'
+    type: string
+    category: md_mastodon.templates
+  md_mastodon.view.layoutRootPath:
+    default: 'EXT:md_mastodon/Resources/Private/Layouts/'
+    type: string
+    category: md_mastodon.templates

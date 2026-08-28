@@ -1,0 +1,8 @@
+parameters:
+    level: 5
+
+    paths:
+        - ../../Classes
+        - ../../Configuration
+        - ../../Tests
+        - ../../ext_localconf.php

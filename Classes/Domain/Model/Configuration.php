@@ -14,43 +14,44 @@ namespace Mediadreams\MdMastodon\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * Configuration
  */
-class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Configuration extends AbstractEntity
 {
-
     /**
      * Title of the configuration
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $title;
 
     /**
      * The Mastodon Api url
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $apiUrl;
 
     /**
      * Mastodon API token
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $apiToken;
 
     /**
      * Mastodon API method
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $apiMethod;
 
     /**
@@ -106,8 +107,8 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Update frequency in seconds
      *
      * @var int|null
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?int $updateFrequency = null;
 
     /**
@@ -127,9 +128,9 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Comma seperated page Uids, where feed is cached
      *
-     * @var string|null
+     * @var string
      */
-    protected ?string $cachedInPages = null;
+    protected string $cachedInPages = '[]';
 
     public function getTitle(): string
     {
@@ -263,7 +264,7 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     public function getData(): array|string
     {
-        return json_decode($this->data, true);
+        return json_decode($this->data, true) ?? [];
     }
 
     public function setData(string $data): void
@@ -271,7 +272,7 @@ class Configuration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->data = $data;
     }
 
-    public function getCachedInPages()
+    public function getCachedInPages(): string
     {
         return $this->cachedInPages;
     }

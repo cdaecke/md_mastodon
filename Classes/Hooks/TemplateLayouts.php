@@ -47,8 +47,8 @@ class TemplateLayouts
     {
         $templateLayouts = [];
         $pagesTsConfig = BackendUtility::getPagesTSconfig($pageUid);
-        if (isset($pagesTsConfig['tx_mdmastodon_api.']['templateLayouts.']) &&
-            is_array($pagesTsConfig['tx_mdmastodon_api.']['templateLayouts.'])
+        if (isset($pagesTsConfig['tx_mdmastodon_api.']['templateLayouts.'])
+            && is_array($pagesTsConfig['tx_mdmastodon_api.']['templateLayouts.'])
         ) {
             $templateLayouts = $pagesTsConfig['tx_mdmastodon_api.']['templateLayouts.'];
         }

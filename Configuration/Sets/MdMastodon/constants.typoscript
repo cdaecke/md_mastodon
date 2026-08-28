@@ -1,0 +1,8 @@
+@import 'EXT:md_mastodon/Configuration/TypoScript/constants.typoscript'
+
+# Map site settings to the legacy constants consumed by the shared TypoScript setup.
+plugin.tx_mdmastodon_api.view {
+  templateRootPath = {$md_mastodon.view.templateRootPath}
+  partialRootPath = {$md_mastodon.view.partialRootPath}
+  layoutRootPath = {$md_mastodon.view.layoutRootPath}
+}

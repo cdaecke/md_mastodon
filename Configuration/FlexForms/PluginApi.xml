@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <T3DataStructure>
     <meta>
         <langDisable>1</langDisable>
@@ -13,7 +14,6 @@
                         <description>LLL:EXT:md_mastodon/Resources/Private/Language/locallang.xlf:flexforms.plugin_api.configId.description</description>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>tx_mdmastodon_domain_model_configuration</allowed>
                             <size>1</size>
                             <maxitems>1</maxitems>
@@ -49,8 +49,8 @@
                             <itemsProcFunc>Mediadreams\MdMastodon\Hooks\TemplateLayouts->user_templateLayout</itemsProcFunc>
                             <items>
                                 <numIndex index="0">
-                                    <label></label>
-                                    <value></value>
+                                    <label/>
+                                    <value/>
                                 </numIndex>
                             </items>
                         </config>

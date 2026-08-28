@@ -23,17 +23,80 @@
         "source": "https://github.com/cdaecke/md_mastodon"
     },
     "require": {
-        "typo3/cms-core": "^12.4 || ^13.4",
-        "typo3/cms-scheduler": "^12.4 || ^13.4"
+        "php": "^8.2",
+        "typo3/cms-backend": "^13.4 || ^14.3",
+        "typo3/cms-core": "^13.4 || ^14.3",
+        "typo3/cms-extbase": "^13.4 || ^14.3",
+        "typo3/cms-fluid": "^13.4 || ^14.3",
+        "typo3/cms-frontend": "^13.4 || ^14.3",
+        "typo3/cms-install": "^13.4 || ^14.3",
+        "typo3/cms-scheduler": "^13.4 || ^14.3"
+    },
+    "require-dev": {
+        "a9f/typo3-fractor": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpstan/phpstan": "^2.0",
+        "rector/rector": ">=2.6.3,<2.6.4",
+        "ssch/typo3-rector": "^3.15",
+        "typo3/cms-fluid-styled-content": "^13.4 || ^14.3",
+        "typo3/coding-standards": "^0.9",
+        "typo3/testing-framework": "^9.5"
     },
     "autoload": {
         "psr-4": {
             "Mediadreams\\MdMastodon\\": "Classes"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Mediadreams\\MdMastodon\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "a9f/fractor-extension-installer": true,
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "bin-dir": ".Build/bin",
+        "lock": false,
+        "sort-packages": true,
+        "vendor-dir": ".Build/vendor"
+    },
     "extra": {
         "typo3/cms": {
-            "extension-key": "md_mastodon"
+			"Package": {
+				"providesPackages": {}
+			},
+            "extension-key": "md_mastodon",
+			"version": "1.0.0",
+            "web-dir": ".Build/public"
         }
+    },
+    "scripts": {
+        "check:php:cs-fixer": "php-cs-fixer fix --config=Build/php-cs-fixer/config.php --dry-run --diff",
+        "check:php:fractor": "fractor process --dry-run --config=Build/fractor/config.php",
+        "check:php:rector": "rector process --dry-run --config=Build/rector/config.php",
+        "check:phpstan": "@check:phpstan:14.3",
+        "check:phpstan:13.4": "phpstan analyse --configuration=Build/phpstan/TYPO3_13.4/phpstan.neon",
+        "check:phpstan:14.3": "phpstan analyse --configuration=Build/phpstan/TYPO3_14.3/phpstan.neon",
+        "check:tests:functional": "typo3DatabaseDriver=pdo_sqlite phpunit -c Build/phpunit/FunctionalTests.xml",
+        "check:tests:unit": "phpunit -c Build/phpunit/UnitTests.xml",
+        "fix:php:cs-fixer": "php-cs-fixer fix --config=Build/php-cs-fixer/config.php",
+        "fix:php:fractor": "fractor process --config=Build/fractor/config.php",
+        "fix:php:rector": "rector process --config=Build/rector/config.php"
+    },
+    "scripts-descriptions": {
+        "check:php:cs-fixer": "Checks the code style with PHP-CS-Fixer.",
+        "check:php:fractor": "Checks for non-PHP code migrations (TypoScript, FlexForms, etc.) with Fractor.",
+        "check:php:rector": "Checks for PHP code migrations with Rector.",
+        "check:phpstan": "Runs the PHPStan static analysis (against TYPO3 v14.3).",
+        "check:phpstan:13.4": "Runs the PHPStan static analysis against TYPO3 v13.4.",
+        "check:phpstan:14.3": "Runs the PHPStan static analysis against TYPO3 v14.3.",
+        "check:tests:functional": "Runs the functional tests.",
+        "check:tests:unit": "Runs the unit tests.",
+        "fix:php:cs-fixer": "Fixes the code style with PHP-CS-Fixer.",
+        "fix:php:fractor": "Applies non-PHP code migrations with Fractor.",
+        "fix:php:rector": "Applies PHP code migrations with Rector."
     }
 }

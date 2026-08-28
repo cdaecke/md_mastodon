@@ -20,9 +20,8 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 
 /**
  * Class MastodonApiRequester
- * @package Mediadreams\MdMastodon\Http
  */
-final class MastodonApiRequester
+final readonly class MastodonApiRequester
 {
     /**
      * MastodonApiRequester constructor.
@@ -30,9 +29,9 @@ final class MastodonApiRequester
      * @param LoggerInterface $logger
      */
     public function __construct(
-        protected RequestFactory $requestFactory,
-        protected LoggerInterface $logger
-    ) { }
+        private RequestFactory $requestFactory,
+        private LoggerInterface $logger
+    ) {}
 
     /**
      * @param array $conf
@@ -40,10 +39,14 @@ final class MastodonApiRequester
      */
     public function request(array $conf): string
     {
-        $url = $this->getApiUrl($conf);
-
         if (empty($conf['api_token'])) {
             $this->logger->error('No API token provided for configuration with Uid ' . $conf['uid']);
+            return '';
+        }
+
+        $url = $this->getApiUrl($conf);
+        if (empty($url)) {
+            // getApiUrl() already logged the specific reason.
             return '';
         }
 
@@ -58,13 +61,13 @@ final class MastodonApiRequester
         );
 
         if ($response->getStatusCode() !== 200) {
+            // Deliberately not logging $additionalOptions: it carries the bearer token.
             $this->logger->error('Mastodon API call failed.', [
                 'url' => $url,
-                'additionalOptions' => $additionalOptions,
-                'statusCode' => $response->getStatusCode()
+                'statusCode' => $response->getStatusCode(),
             ]);
 
-            throw new \RuntimeException('Returned status code is ' . $response->getStatusCode());
+            throw new \RuntimeException('Returned status code is ' . $response->getStatusCode(), 2558427448);
         }
 
         return $response->getBody()->getContents();
@@ -101,25 +104,14 @@ final class MastodonApiRequester
      */
     private function getApiUrlPath(array $conf): string
     {
-        switch ($conf['api_method']) {
-            case 'public_timeline':
-                $apiUrlPath = 'timelines/public';
-                break;
-            case 'home_timeline':
-                $apiUrlPath = 'timelines/home';
-                break;
-            case 'list_timeline':
-                $apiUrlPath = 'timelines/list/' . $conf['list_id'];
-                break;
-            case 'accounts':
-                $apiUrlPath = 'accounts/' . $conf['account_id'] . '/statuses';
-                break;
-            case 'hashtag_timeline':
-                $apiUrlPath = 'timelines/tag/' . $conf['hashtag'];
-                break;
-            default:
-                $apiUrlPath = '';
-        }
+        $apiUrlPath = match ($conf['api_method']) {
+            'public_timeline' => 'timelines/public',
+            'home_timeline' => 'timelines/home',
+            'list_timeline' => 'timelines/list/' . $conf['list_id'],
+            'accounts' => 'accounts/' . $conf['account_id'] . '/statuses',
+            'hashtag_timeline' => 'timelines/tag/' . $conf['hashtag'],
+            default => '',
+        };
 
         return $apiUrlPath;
     }
@@ -133,10 +125,10 @@ final class MastodonApiRequester
     private function getApiParams(array $conf): string
     {
         $apiParams = '?';
-        $apiParams .= $conf['only_media']? 'only_media=1&':'';
-        $apiParams .= $conf['exclude_replies']? 'exclude_replies=1&':'';
-        $apiParams .= $conf['exclude_reblogs']? 'exclude_reblogs=1&':'';
-        $apiParams .= $conf['only_pinned']? 'pinned=1&':'';
+        $apiParams .= $conf['only_media'] ? 'only_media=1&' : '';
+        $apiParams .= $conf['exclude_replies'] ? 'exclude_replies=1&' : '';
+        $apiParams .= $conf['exclude_reblogs'] ? 'exclude_reblogs=1&' : '';
+        $apiParams .= $conf['only_pinned'] ? 'pinned=1&' : '';
 
         return $apiParams;
     }

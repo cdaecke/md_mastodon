@@ -10,12 +10,12 @@ Example of Mastodon social wall:
 
 ## Requirements
 
-- TYPO3 v12.4 | v13.4
+- TYPO3 v13.4 | v14.3
 
 ## Installation
 
 - Install the extension by using composer (`composer req mediadreams/md_mastodon`) or the extension manager
-- Include the static TypoScript of the extension
+- Include the static TypoScript or the Site Set of the extension
 - Configure the extension by setting your own Typoscript constants
 
 - `plugin.tx_mdmastodon_api.settings.includeCss`<br>

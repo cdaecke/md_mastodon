@@ -14,23 +14,20 @@ namespace Mediadreams\MdMastodon\Domain\Repository;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-use Mediadreams\MdMastodon\Domain\Model\Configuration;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * The repository for Configurations
  */
-class ConfigurationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class ConfigurationRepository extends Repository
 {
     /**
      * Initialize repository
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         /** @var QuerySettingsInterface $querySettings */
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);

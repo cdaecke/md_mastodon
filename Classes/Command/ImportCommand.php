@@ -14,43 +14,35 @@ namespace Mediadreams\MdMastodon\Command;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use Doctrine\DBAL\Exception;
 use Mediadreams\MdMastodon\Http\MastodonApiRequester;
 use Mediadreams\MdMastodon\Service\ImagesService;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Log\Logger;
-use \TYPO3\CMS\Core\Log\LogManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class ImportCommand
- * @package Mediadreams\MdMastodon\Command
- */
+#[AsCommand(
+    name: 'mdmastodon:import',
+    description: 'Import data from configured Mastodon API calls.',
+)]
 class ImportCommand extends Command
 {
     protected string $table = 'tx_mdmastodon_domain_model_configuration';
-    protected MastodonApiRequester $mastodonApiRequester;
-    protected ImagesService $imagesService;
-    protected Logger $logger;
 
-    /**
-     * ImportFeedCommand constructor.
-     * @param string|null $name
-     */
-    public function __construct(string $name = null)
-    {
+    public function __construct(
+        private readonly MastodonApiRequester $mastodonApiRequester,
+        private readonly ImagesService $imagesService,
+        private readonly LoggerInterface $logger,
+        private readonly ConnectionPool $connectionPool,
+        private readonly CacheManager $cacheManager,
+        ?string $name = null,
+    ) {
         parent::__construct($name);
-
-        $this->mastodonApiRequester = GeneralUtility::makeInstance(MastodonApiRequester::class);
-        $this->imagesService = GeneralUtility::makeInstance(ImagesService::class);
-
-        $logManager = GeneralUtility::makeInstance(LogManager::class);
-        $this->logger = $logManager->getLogger(self::class);
     }
 
     /**
@@ -87,8 +79,7 @@ class ImportCommand extends Command
                         $apiData = $this->imagesService->loadImages($apiData);
 
                         // Update configuration
-                        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-                        $queryBuilder = $connectionPool->getQueryBuilderForTable($this->table);
+                        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($this->table);
                         $queryBuilder
                             ->update($this->table)
                             ->where(
@@ -108,9 +99,9 @@ class ImportCommand extends Command
             }
 
             return Command::SUCCESS;
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error('Import of Mastodon API call failed.', [
-                'exeption' => $exception->getMessage()
+                'exeption' => $exception->getMessage(),
             ]);
 
             $output->writeln('Error with Mastodon API');
@@ -125,12 +116,11 @@ class ImportCommand extends Command
      *
      * @param int $timestamp
      * @return array
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     protected function getConfigsForUpdate(int $timestamp): array
     {
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $queryBuilder = $connectionPool->getQueryBuilderForTable($this->table);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($this->table);
 
         $result = $queryBuilder
             ->select('*')
@@ -147,9 +137,8 @@ class ImportCommand extends Command
      */
     private function clearCachedPages(array $pages): void
     {
-        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         foreach ($pages as $page) {
-            $cacheManager->flushCachesInGroupByTags('pages', [ 'pageId_' . $page ]);
+            $this->cacheManager->flushCachesInGroupByTags('pages', ['pageId_' . $page]);
         }
     }
 }
