@@ -110,4 +110,33 @@ final class ImagesServiceTest extends FunctionalTestCase
             Environment::getPublicPath() . '/typo3temp/assets/tx_mdmastodon/' . sha1('https://example.com/media.jpg') . '.jpg',
         );
     }
+
+    #[Test]
+    public function loadImagesReturnsInputUnchangedWhenItIsNotAJsonArray(): void
+    {
+        /** @var RequestFactory&MockObject $requestFactory */
+        $requestFactory = $this->createMock(RequestFactory::class);
+        $requestFactory->expects($this->never())->method('request');
+
+        $subject = new ImagesService($requestFactory, new NullLogger());
+
+        self::assertSame('not valid json', $subject->loadImages('not valid json'));
+        self::assertSame('"just a json string"', $subject->loadImages('"just a json string"'));
+    }
+
+    #[Test]
+    public function loadImagesSkipsNonArrayItemsWithoutCrashing(): void
+    {
+        /** @var RequestFactory&MockObject $requestFactory */
+        $requestFactory = $this->createMock(RequestFactory::class);
+        $requestFactory->expects($this->never())->method('request');
+
+        $subject = new ImagesService($requestFactory, new NullLogger());
+        $result = json_decode(
+            $subject->loadImages(json_encode(['just a string item', 123, null])),
+            true,
+        );
+
+        self::assertSame(['just a string item', 123, null], $result);
+    }
 }

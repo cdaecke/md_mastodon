@@ -47,12 +47,23 @@ class ImagesService
      */
     public function loadImages(string $data): string
     {
-        $data = json_decode($data, true);
+        $decoded = json_decode($data, true);
+
+        if (!is_array($decoded)) {
+            $this->logger->error('Could not decode Mastodon API result as an array.');
+            return $data;
+        }
+
+        $data = $decoded;
 
         $path = GeneralUtility::getFileAbsFileName($this->imageFolder);
         $this->createFolderIfNotExists($path);
 
         for ($i = 0; $i < count($data); $i++) {
+            if (!is_array($data[$i])) {
+                continue;
+            }
+
             $imageUrl = $this->resolveImageUrl($data[$i]);
 
             if ($imageUrl !== false) {

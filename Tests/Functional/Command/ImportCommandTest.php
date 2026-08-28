@@ -165,4 +165,22 @@ final class ImportCommandTest extends FunctionalTestCase
         self::assertSame(Command::SUCCESS, $result);
         $this->assertCSVDataSet(__DIR__ . '/Fixtures/Database/ConfigurationNotDue.csv');
     }
+
+    #[Test]
+    public function runCatchesThrowableNotJustExceptionAndReturnsAnErrorCode(): void
+    {
+        $this->importCSVDataSet(__DIR__ . '/Fixtures/Database/Configuration.csv');
+
+        $requestFactory = self::createStub(RequestFactory::class);
+        // A \TypeError is a \Throwable but not an \Exception - simulates an
+        // unexpected low-level error (e.g. a malformed API response) rather
+        // than a regular, already-caught exception.
+        $requestFactory->method('request')->willThrowException(new \TypeError('Simulated unexpected error'));
+
+        $cacheManager = self::createStub(CacheManager::class);
+
+        $result = $this->createCommandTester($requestFactory, $cacheManager)->execute([]);
+
+        self::assertNotSame(Command::SUCCESS, $result);
+    }
 }

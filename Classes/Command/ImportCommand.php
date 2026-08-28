@@ -14,7 +14,7 @@ namespace Mediadreams\MdMastodon\Command;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use Doctrine\DBAL\Exception;
 use Mediadreams\MdMastodon\Http\MastodonApiRequester;
 use Mediadreams\MdMastodon\Service\ImagesService;
 use Psr\Log\LoggerInterface;
@@ -99,7 +99,7 @@ class ImportCommand extends Command
             }
 
             return Command::SUCCESS;
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
             $this->logger->error('Import of Mastodon API call failed.', [
                 'exeption' => $exception->getMessage(),
             ]);
@@ -116,7 +116,7 @@ class ImportCommand extends Command
      *
      * @param int $timestamp
      * @return array
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     protected function getConfigsForUpdate(int $timestamp): array
     {
