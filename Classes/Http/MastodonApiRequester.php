@@ -61,9 +61,9 @@ final readonly class MastodonApiRequester
         );
 
         if ($response->getStatusCode() !== 200) {
+            // Deliberately not logging $additionalOptions: it carries the bearer token.
             $this->logger->error('Mastodon API call failed.', [
                 'url' => $url,
-                'additionalOptions' => $additionalOptions,
                 'statusCode' => $response->getStatusCode(),
             ]);
 

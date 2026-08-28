@@ -127,7 +127,7 @@ final class ConfigurationControllerTest extends FunctionalTestCase
         self::assertNotEmpty($matches, 'Could not locate the rendered article body in the response.');
 
         preg_match_all('/<\s*\/?\s*([a-zA-Z][a-zA-Z0-9]*)/', $matches[1], $tagMatches);
-        $foundTags = array_unique(array_map('strtolower', $tagMatches[1]));
+        $foundTags = array_unique(array_map(strtolower(...), $tagMatches[1]));
 
         self::assertSame([], array_values(array_diff($foundTags, ['p', 'br', 'div'])));
     }
