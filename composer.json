@@ -74,29 +74,46 @@
         }
     },
     "scripts": {
+		"check:php": [
+			"@check:php:cs-fixer",
+			"@check:php:rector",
+			"@check:php:fractor"
+		],
         "check:php:cs-fixer": "php-cs-fixer fix --config=Build/php-cs-fixer/config.php --dry-run --diff",
         "check:php:fractor": "fractor process --dry-run --config=Build/fractor/config.php",
         "check:php:rector": "rector process --dry-run --config=Build/rector/config.php",
         "check:phpstan": "@check:phpstan:14.3",
         "check:phpstan:13.4": "phpstan analyse --configuration=Build/phpstan/TYPO3_13.4/phpstan.neon",
         "check:phpstan:14.3": "phpstan analyse --configuration=Build/phpstan/TYPO3_14.3/phpstan.neon",
+		"check:tests": [
+			"@check:tests:unit",
+			"@check:tests:functional"
+		],
         "check:tests:functional": "typo3DatabaseDriver=pdo_sqlite phpunit -c Build/phpunit/FunctionalTests.xml",
         "check:tests:unit": "phpunit -c Build/phpunit/UnitTests.xml",
+		"fix:php": [
+			"@fix:php:rector",
+			"@fix:php:fractor",
+			"@fix:php:cs-fixer"
+		],
         "fix:php:cs-fixer": "php-cs-fixer fix --config=Build/php-cs-fixer/config.php",
         "fix:php:fractor": "fractor process --config=Build/fractor/config.php",
         "fix:php:rector": "rector process --config=Build/rector/config.php"
     },
     "scripts-descriptions": {
+		"check:php": "Runs the PHP syntax, style and migration dry-runs.",
         "check:php:cs-fixer": "Checks the code style with PHP-CS-Fixer.",
         "check:php:fractor": "Checks for non-PHP code migrations (TypoScript, FlexForms, etc.) with Fractor.",
         "check:php:rector": "Checks for PHP code migrations with Rector.",
         "check:phpstan": "Runs the PHPStan static analysis (against TYPO3 v14.3).",
         "check:phpstan:13.4": "Runs the PHPStan static analysis against TYPO3 v13.4.",
         "check:phpstan:14.3": "Runs the PHPStan static analysis against TYPO3 v14.3.",
+		"check:tests": "Runs all tests (unit + functional).",
         "check:tests:functional": "Runs the functional tests.",
         "check:tests:unit": "Runs the unit tests.",
         "fix:php:cs-fixer": "Fixes the code style with PHP-CS-Fixer.",
         "fix:php:fractor": "Applies non-PHP code migrations with Fractor.",
-        "fix:php:rector": "Applies PHP code migrations with Rector."
+        "fix:php:rector": "Applies PHP code migrations with Rector.",
+		"fix:php": "Runs all automatic PHP and configuration fixers."
     }
 }
