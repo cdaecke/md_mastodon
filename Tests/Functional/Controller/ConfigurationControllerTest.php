@@ -79,6 +79,60 @@ final class ConfigurationControllerTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function showActionSanitizesMaliciousContentButKeepsSafeMarkup(): void
+    {
+        $this->seedConfigurationData([
+            [
+                'id' => '1',
+                'content' => '<p onmouseover="alert(1)">Safe text</p><script>alert(2)</script>'
+                    . '<a href="javascript:alert(3)">bad link</a>'
+                    . '<a href="https://mastodon.example/tags/typo3" class="mention hashtag">#typo3</a>'
+                    . '<span class="x">span text</span><blockquote>quote text</blockquote>'
+                    . '<img src="https://example.com/x.png" onerror="alert(4)">'
+                    . '<table><tr><td>cell text</td></tr></table>',
+                'url' => 'https://example.com/1',
+                'account' => ['acct' => 'user@example.com'],
+                'created_at' => '2026-01-01T12:00:00.000Z',
+                'card' => false,
+                'reblog' => false,
+            ],
+        ]);
+
+        $request = (new InternalRequest())->withPageId(1);
+        $html = (string)$this->executeFrontendSubRequest($request)->getBody();
+
+        self::assertStringContainsString('Safe text', $html);
+        self::assertStringNotContainsString('onmouseover', $html);
+        // The <script> tag itself is neutralized by HTML-encoding it into inert text
+        // rather than being stripped outright - either way it can no longer execute.
+        self::assertStringNotContainsString('<script>', $html);
+        self::assertStringContainsString('&lt;script&gt;', $html);
+        self::assertStringNotContainsString('javascript:', $html);
+        // Links inside the content are stripped entirely (text kept) - the item is
+        // already wrapped in its own <a> to the toot permalink, so nested links
+        // (invalid HTML, and not wanted here) must not survive.
+        self::assertStringNotContainsString('<a href="https://mastodon.example/tags/typo3"', $html);
+        self::assertStringContainsString('bad link', $html);
+        self::assertStringContainsString('#typo3', $html);
+
+        // Text of other stripped tags is kept, but the tags themselves must be gone.
+        self::assertStringContainsString('span text', $html);
+        self::assertStringContainsString('quote text', $html);
+        self::assertStringContainsString('cell text', $html);
+        self::assertStringNotContainsString('onerror', $html);
+
+        // Exhaustive check: within the rendered article body, no tag other than
+        // p, br and div may remain - not just the specific ones asserted above.
+        preg_match('#<div itemprop="articleBody">(.*?)</div>\s*</div>#s', $html, $matches);
+        self::assertNotEmpty($matches, 'Could not locate the rendered article body in the response.');
+
+        preg_match_all('/<\s*\/?\s*([a-zA-Z][a-zA-Z0-9]*)/', $matches[1], $tagMatches);
+        $foundTags = array_unique(array_map('strtolower', $tagMatches[1]));
+
+        self::assertSame([], array_values(array_diff($foundTags, ['p', 'br', 'div'])));
+    }
+
+    #[Test]
     public function showActionRendersNoItemsMessageWhenConfigurationHasNoData(): void
     {
         $request = (new InternalRequest())->withPageId(1);

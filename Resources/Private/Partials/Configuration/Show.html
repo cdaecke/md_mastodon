@@ -31,7 +31,7 @@
                     </small>
                 </p>
                 <div itemprop="articleBody">
-                    {content -> f:format.stripTags(allowedTags: "<p><br><div>")}
+                    {content -> f:sanitize.html() -> f:format.stripTags(allowedTags: "<p><br><div>")}
                 </div>
             </div>
         </a>
