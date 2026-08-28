@@ -69,7 +69,7 @@
 				"providesPackages": {}
 			},
             "extension-key": "md_mastodon",
-			"version": "1.0.0",
+			"version": "2.0.0",
             "web-dir": ".Build/public"
         }
     },
