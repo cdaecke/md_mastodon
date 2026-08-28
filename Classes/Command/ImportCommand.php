@@ -18,6 +18,7 @@ namespace Mediadreams\MdMastodon\Command;
 use Mediadreams\MdMastodon\Http\MastodonApiRequester;
 use Mediadreams\MdMastodon\Service\ImagesService;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,9 +26,10 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 
-/**
- * Class ImportCommand
- */
+#[AsCommand(
+    name: 'mdmastodon:import',
+    description: 'Import data from configured Mastodon API calls.',
+)]
 class ImportCommand extends Command
 {
     protected string $table = 'tx_mdmastodon_domain_model_configuration';
