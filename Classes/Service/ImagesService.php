@@ -27,6 +27,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ImagesService
 {
+    // No svg: it can embed <script> and would be an XSS vector in its own right once served from this path.
+    private const ALLOWED_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
+
+    private const ALLOWED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
+
     protected string $imageFolder = 'typo3temp/assets/tx_mdmastodon/';
 
     public function __construct(
@@ -51,8 +56,19 @@ class ImagesService
             $imageUrl = $this->resolveImageUrl($data[$i]);
 
             if ($imageUrl !== false) {
-                $imageExt = strrchr($imageUrl, '.');
-                $fileName = $data[$i]['id'] . $imageExt;
+                $extension = $this->extractAllowedExtension($imageUrl);
+
+                if ($extension === null) {
+                    $this->logger->error('Image URL has no allowed file extension.', [
+                        'itemId' => $data[$i]['id'],
+                        'url' => $imageUrl,
+                    ]);
+                    $data[$i]['local_image_file'] = '';
+                    continue;
+                }
+
+                // Derived from the URL rather than the remote id, so a crafted id cannot influence the path.
+                $fileName = sha1($imageUrl) . '.' . $extension;
                 $pathAndName = GeneralUtility::getFileAbsFileName($this->imageFolder) . $fileName;
 
                 // Set filename for item in database
@@ -60,22 +76,28 @@ class ImagesService
 
                 if (!@is_file($pathAndName)) {
                     $imageContent = $this->getImageContent($imageUrl);
-                    $imageSaved = GeneralUtility::writeFile($pathAndName, $imageContent, true);
 
-                    if ($imageSaved) {
-                        // If file is not an image, remove it!
-                        if (getimagesize($pathAndName) === false) {
-                            unlink($pathAndName);
-                            $data[$i]['local_image_file'] = '';
-                        }
-                    } else {
+                    if (!$this->isAllowedImageContent($imageContent)) {
+                        $this->logger->error('Downloaded file is not an allowed image type.', [
+                            'itemId' => $data[$i]['id'],
+                            'url' => $imageUrl,
+                        ]);
+                        $data[$i]['local_image_file'] = '';
+                        continue;
+                    }
+
+                    $error = GeneralUtility::writeFileToTypo3tempDir($pathAndName, $imageContent);
+
+                    if ($error !== null) {
                         $this->logger->error(
                             'Image could not be saved.',
                             [
                                 'itemId' => $data[$i]['id'],
                                 'url' => $imageUrl,
+                                'error' => $error,
                             ]
                         );
+                        $data[$i]['local_image_file'] = '';
                     }
                 }
             }
@@ -115,6 +137,30 @@ class ImagesService
         }
 
         return false;
+    }
+
+    /**
+     * Extract the file extension from an image URL's path, restricted to a
+     * fixed allowlist so a remote URL cannot smuggle in an executable
+     * extension (e.g. `.php`).
+     */
+    private function extractAllowedExtension(string $url): ?string
+    {
+        $path = (string)parse_url($url, PHP_URL_PATH);
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+        return in_array($extension, self::ALLOWED_IMAGE_EXTENSIONS, true) ? $extension : null;
+    }
+
+    /**
+     * Verify the downloaded content is actually an allowed image type,
+     * based on its content rather than its (attacker-controlled) URL.
+     */
+    private function isAllowedImageContent(string $content): bool
+    {
+        $mimeType = (new \finfo(FILEINFO_MIME_TYPE))->buffer($content);
+
+        return in_array($mimeType, self::ALLOWED_IMAGE_MIME_TYPES, true);
     }
 
     /**
